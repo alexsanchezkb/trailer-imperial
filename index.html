@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Convierte tu logro en una orden de rodaje para MiniMax H3: plano, lente, movimiento y luz ya decididos. Juegos Imperiales V3.">
+<meta name="color-scheme" content="light dark">
+<title>Tráiler Imperial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#E7E9EC;
+  --surface:#FFFFFF;
+  --surface-2:#F1F3F6;
+  --ink:#14171C;
+  --ink-2:#3D434D;
+  --muted:#727984;
+  --line:#CFD4DB;
+  --line-strong:#A9B1BC;
+  --accent:#2F6BE0;
+  --accent-ink:#FFFFFF;
+  --accent-soft:rgba(47,107,224,.10);
+  --shadow:0 1px 0 rgba(20,23,28,.05), 0 8px 28px -18px rgba(20,23,28,.35);
+}
+:root[data-house="aguila"]{ --accent:#C62B36; --accent-soft:rgba(198,43,54,.10); }
+:root[data-house="grifo"]{ --accent:#B8860B; --accent-soft:rgba(184,134,11,.12); }
+:root[data-house="pegaso"]{ --accent:#2F6BE0; --accent-soft:rgba(47,107,224,.10); }
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1013;
+    --surface:#171A1F;
+    --surface-2:#1F232A;
+    --ink:#E9EBEF;
+    --ink-2:#B8BEC8;
+    --muted:#828A96;
+    --line:#2A2F37;
+    --line-strong:#3D444E;
+    --accent:#5B92FF;
+    --accent-ink:#0E1013;
+    --accent-soft:rgba(91,146,255,.14);
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 32px -20px rgba(0,0,0,.9);
+  }
+  :root:not([data-theme="light"])[data-house="aguila"]{ --accent:#F0616B; --accent-soft:rgba(240,97,107,.14); }
+  :root:not([data-theme="light"])[data-house="grifo"]{ --accent:#E8B33C; --accent-soft:rgba(232,179,60,.14); }
+  :root:not([data-theme="light"])[data-house="pegaso"]{ --accent:#5B92FF; --accent-soft:rgba(91,146,255,.14); }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1013;
+  --surface:#171A1F;
+  --surface-2:#1F232A;
+  --ink:#E9EBEF;
+  --ink-2:#B8BEC8;
+  --muted:#828A96;
+  --line:#2A2F37;
+  --line-strong:#3D444E;
+  --accent:#5B92FF;
+  --accent-ink:#0E1013;
+  --accent-soft:rgba(91,146,255,.14);
+  --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 32px -20px rgba(0,0,0,.9);
+}
+:root[data-theme="dark"][data-house="aguila"]{ --accent:#F0616B; --accent-soft:rgba(240,97,107,.14); }
+:root[data-theme="dark"][data-house="grifo"]{ --accent:#E8B33C; --accent-soft:rgba(232,179,60,.14); }
+:root[data-theme="dark"][data-house="pegaso"]{ --accent:#5B92FF; --accent-soft:rgba(91,146,255,.14); }
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px 72px;}
+
+/* ── claqueta ─────────────────────────────── */
+.slate{
+  margin:0 0 34px;
+  background:var(--surface);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+}
+.slate-bar{
+  height:16px;
+  background:repeating-linear-gradient(115deg,var(--ink) 0 22px,var(--surface) 22px 44px);
+}
+.slate-inner{
+  max-width:1180px;margin:0 auto;padding:26px 20px 24px;
+  display:flex;flex-wrap:wrap;gap:18px 28px;align-items:flex-end;justify-content:space-between;
+}
+h1{
+  font-family:"Anton","Archivo",sans-serif;
+  font-weight:400;
+  font-size:clamp(38px,6.4vw,64px);
+  line-height:.92;
+  letter-spacing:.005em;
+  margin:0;
+  text-transform:uppercase;
+  text-wrap:balance;
+}
+h1 em{font-style:normal;color:var(--accent);}
+.sub{
+  margin:10px 0 0;max-width:52ch;color:var(--ink-2);font-size:15.5px;
+}
+.stamp{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);text-align:right;line-height:1.9;white-space:nowrap;
+}
+.stamp b{color:var(--ink);font-weight:600;}
+
+/* ── rejilla ──────────────────────────────── */
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:26px;align-items:start;}
+@media (max-width:900px){ .grid{grid-template-columns:1fr;} }
+
+.panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.panel + .panel{margin-top:22px;}
+.panel-head{
+  display:flex;align-items:baseline;gap:12px;
+  padding:14px 20px;border-bottom:1px solid var(--line);
+}
+.panel-head .n{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
+  letter-spacing:.14em;color:var(--accent);
+}
+.panel-head h2{
+  margin:0;font-family:"Archivo",sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink);
+}
+.panel-body{padding:20px;display:flex;flex-direction:column;gap:20px;}
+
+label.field{display:flex;flex-direction:column;gap:8px;}
+.lab{
+  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+}
+.hint{font-size:13px;color:var(--muted);line-height:1.5;}
+
+textarea,input[type=text],select{
+  width:100%;font-family:"Archivo",sans-serif;font-size:15px;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--line);border-radius:2px;
+  padding:11px 12px;line-height:1.5;
+}
+textarea{resize:vertical;min-height:88px;}
+select{appearance:none;background-image:none;cursor:pointer;}
+textarea:focus-visible,input:focus-visible,select:focus-visible,button:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;
+}
+
+/* segmentos */
+.seg{display:flex;flex-wrap:wrap;gap:8px;}
+.seg button{
+  flex:1 1 auto;min-width:88px;cursor:pointer;
+  font-family:"Archivo",sans-serif;font-size:13px;font-weight:600;
+  letter-spacing:.04em;padding:9px 12px;border-radius:2px;
+  background:var(--surface-2);color:var(--ink-2);
+  border:1px solid var(--line);transition:background .12s,color .12s,border-color .12s;
+}
+.seg button:hover{border-color:var(--line-strong);}
+.seg button[aria-pressed="true"]{
+  background:var(--accent);color:var(--accent-ink);border-color:var(--accent);
+}
+.houses button[aria-pressed="true"]{box-shadow:inset 0 0 0 1px var(--surface);}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:-1px;}
+
+/* ── salida ───────────────────────────────── */
+.sheet{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12.5px;line-height:1.7;
+}
+.sheet dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0;margin:0;}
+.sheet dt{
+  padding:7px 16px 7px 0;border-bottom:1px solid var(--line);
+  font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+  white-space:nowrap;font-weight:500;
+}
+.sheet dd{
+  margin:0;padding:7px 0;border-bottom:1px solid var(--line);color:var(--ink);
+}
+.sheet dl > :nth-last-child(1),.sheet dl > :nth-last-child(2){border-bottom:0;}
+
+.prompt{
+  background:var(--surface-2);border:1px solid var(--line);
+  padding:16px;font-family:"IBM Plex Mono",monospace;
+  font-size:12.5px;line-height:1.75;color:var(--ink);
+  white-space:pre-wrap;word-break:break-word;max-height:340px;overflow-y:auto;
+}
+.actions{display:flex;flex-wrap:wrap;gap:10px;}
+.btn{
+  cursor:pointer;font-family:"Archivo",sans-serif;font-size:13.5px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;padding:12px 20px;border-radius:2px;
+  border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line-strong);}
+.btn:hover{opacity:.88;}
+.note{font-size:12.5px;color:var(--muted);}
+.note code{font-family:"IBM Plex Mono",monospace;font-size:11.5px;background:var(--surface-2);padding:1px 5px;border:1px solid var(--line);}
+
+/* reglas */
+.rules{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;}
+.rules li{
+  display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;
+  padding:14px 0;border-bottom:1px solid var(--line);
+}
+.rules li:last-child{border-bottom:0;padding-bottom:0;}
+.rules .k{
+  font-family:"Anton",sans-serif;font-size:22px;line-height:1;color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.rules strong{display:block;font-size:14.5px;font-weight:700;margin-bottom:3px;}
+.rules span{font-size:13.5px;color:var(--ink-2);line-height:1.55;}
+
+footer{
+  margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
+  font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;
+}
+footer a{color:var(--accent);}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+</style>
+</head>
+<body>
+
+<div class="slate">
+  <div class="slate-bar"></div>
+  <div class="slate-inner">
+    <div>
+      <h1>Tráiler<br><em>Imperial</em></h1>
+      <p class="sub">Tu logro, convertido en una orden de rodaje para MiniMax&nbsp;H3. Eliges qué pasó; sale el prompt con plano, lente, movimiento y luz ya decididos.</p>
+    </div>
+    <div class="stamp">
+      Juegos Imperiales V3<br>
+      Clip de <b>5 s</b> · <b>480p</b><br>
+      Abierto a las <b>tres casas</b>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="grid">
+
+  <!-- ═══ IZQUIERDA ═══ -->
+  <div>
+    <section class="panel">
+      <div class="panel-head"><span class="n">01</span><h2>Tu casa</h2></div>
+      <div class="panel-body">
+        <div class="seg houses" id="houses">
+          <button type="button" data-h="aguila" aria-pressed="false"><span class="dot" style="background:#C62B36"></span>Águila</button>
+          <button type="button" data-h="grifo" aria-pressed="false"><span class="dot" style="background:#B8860B"></span>Grifo</button>
+          <button type="button" data-h="pegaso" aria-pressed="true"><span class="dot" style="background:#2F6BE0"></span>Pegaso</button>
+        </div>
+        <p class="hint">La casa pinta el clip: el color domina el encuadre y entra en el prompt como paleta, no como filtro.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><span class="n">02</span><h2>Qué lograste</h2></div>
+      <div class="panel-body">
+        <div class="seg" id="kinds"></div>
+        <p class="hint" id="kindHint"></p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><span class="n">03</span><h2>Qué se ve</h2></div>
+      <div class="panel-body">
+        <label class="field">
+          <span class="lab">El sujeto, en una frase · en inglés</span>
+          <textarea id="subject" placeholder="A laptop open on a wooden desk, a dashboard glowing on the screen"></textarea>
+          <span class="hint">Escribe lo que la cámara ve, no lo que significa. «Una línea que sube en una pantalla» sirve; «mi crecimiento» no. Va en inglés porque el resto del prompt también: si te faltan palabras, con estas se arma casi todo — <b>desk</b> escritorio, <b>screen</b> pantalla, <b>hands</b> manos, <b>window</b> ventana, <b>notebook</b> cuaderno, <b>phone</b> teléfono, <b>chart</b> gráfica, <b>coffee</b> café, <b>cable</b> cable, <b>workshop</b> taller.</span>
+        </label>
+        <label class="field">
+          <span class="lab">Título de tu logro (opcional)</span>
+          <input type="text" id="title" placeholder="Vendí mi primera automatización en $250">
+          <span class="hint">Solo se usa para nombrar la ficha. No entra en el prompt.</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><span class="n">04</span><h2>Formato y tono</h2></div>
+      <div class="panel-body">
+        <label class="field">
+          <span class="lab">Dónde se va a ver</span>
+          <div class="seg" id="ratios">
+            <button type="button" data-r="16:9" aria-pressed="true">16:9 · feed</button>
+            <button type="button" data-r="9:16" aria-pressed="false">9:16 · reels</button>
+            <button type="button" data-r="1:1" aria-pressed="false">1:1 · cuadrado</button>
+          </div>
+        </label>
+        <label class="field">
+          <span class="lab">Tono</span>
+          <div class="seg" id="tones">
+            <button type="button" data-t="sobrio" aria-pressed="true">Sobrio</button>
+            <button type="button" data-t="epico" aria-pressed="false">Épico</button>
+            <button type="button" data-t="calido" aria-pressed="false">Cálido</button>
+          </div>
+        </label>
+      </div>
+    </section>
+  </div>
+
+  <!-- ═══ DERECHA ═══ -->
+  <div>
+    <section class="panel">
+      <div class="panel-head"><span class="n">05</span><h2>Ficha de dirección</h2></div>
+      <div class="panel-body">
+        <div class="sheet"><dl id="sheet"></dl></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><span class="n">06</span><h2>El prompt</h2></div>
+      <div class="panel-body">
+        <div class="prompt" id="out"></div>
+        <div class="actions">
+          <button class="btn" id="copy" type="button">Copiar prompt</button>
+          <a class="btn ghost" id="open" href="https://fal.ai/tools/minimax-h3-max" target="_blank" rel="noopener noreferrer">Abrir fal.ai</a>
+        </div>
+        <p class="note">Va en inglés porque H3 obedece mejor en inglés. En <code>fal.ai/tools</code> se prueba sin registro, y con cuenta son 5 videos gratis al día. Con API es <code>$0,025</code> el segundo a 480p.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><span class="n">07</span><h2>Las seis reglas de los cinco segundos</h2></div>
+      <div class="panel-body">
+        <ul class="rules">
+          <li><span class="k">1</span><div><strong>Un solo movimiento.</strong><span>En cinco segundos cabe un gesto de cámara. Si pides tres, el modelo elige uno y descarta los otros dos sin avisar.</span></div></li>
+          <li><span class="k">2</span><div><strong>Un solo sujeto.</strong><span>Dos personas en cinco segundos son dos personas mal miradas. Deja fuera todo lo que no sostiene el plano.</span></div></li>
+          <li><span class="k">3</span><div><strong>La luz se pide o se inventa.</strong><span>Si no dices de dónde viene la luz, el modelo pone la suya: plana y de escaparate. Nombra la fuente y la dirección.</span></div></li>
+          <li><span class="k">4</span><div><strong>Parte el tiempo en dos.</strong><span>«0–2s… 2–5s…» es lo que convierte un plano fijo en una toma con dirección.</span></div></li>
+          <li><span class="k">5</span><div><strong>Pide lo que se ve.</strong><span>La cámara no filma conceptos. «Crecimiento» no existe; una línea que sube en una pantalla, sí.</span></div></li>
+          <li><span class="k">6</span><div><strong>El movimiento es la emoción.</strong><span>Acercarse es descubrir. Alejarse es revelar el tamaño. Subir es logro. Quieto es respeto. Elige por lo que sientes, no por lo que se ve bonito.</span></div></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer>
+  <span>Hecho para las tres casas. Úsalo, cámbialo, pásalo.</span>
+  <span>Alexander Sánchez · Casa Pegaso 🔵</span>
+</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var HOUSES = {
+    aguila: { name:"Águila", palette:"deep crimson red dominating the frame, with warm amber highlights" },
+    grifo:  { name:"Grifo",  palette:"deep gold and amber dominating the frame, with dark bronze shadows" },
+    pegaso: { name:"Pegaso", palette:"deep cobalt blue dominating the frame, with cold steel highlights" }
+  };
+
+  var KINDS = [
+    { id:"herramienta", label:"Una herramienta",
+      hint:"Construiste algo que se usa: una app, una página, una extensión.",
+      shot:"Detalle que se abre a plano general", lens:"35 mm",
+      move:"Retroceso lento de cámara (dolly back)", light:"Luz dura lateral, una sola fuente, sombras profundas",
+      why:"Alejarse revela el tamaño de lo que hiciste. Empiezas en un detalle para que la revelación tenga de dónde salir.",
+      en_shot:"extreme close-up opening into a wide shot", en_lens:"35mm lens",
+      en_move:"slow dolly back, single continuous move",
+      en_light:"hard side light from a single source, deep shadows, visible falloff",
+      b1:"one small detail of the object holds the frame, catching the edge of the light",
+      b2:"the camera pulls back and the whole thing is revealed at once, still and complete",
+      sound:"a low sustained hum, no music" },
+
+    { id:"venta", label:"Una venta",
+      hint:"Cerraste un cliente, cobraste, entregaste.",
+      shot:"Plano medio de manos", lens:"50 mm",
+      move:"Acercamiento lento (push in)", light:"Luz cálida de tarde entrando por una ventana lateral",
+      why:"Acercarse es descubrir. La venta se cuenta en las manos y en la pantalla, nunca en una cara sonriendo.",
+      en_shot:"medium shot of hands at a desk", en_lens:"50mm lens, shallow depth of field",
+      en_move:"slow push in, single continuous move",
+      en_light:"warm late-afternoon window light from the side, soft shadows, dust in the beam",
+      b1:"the hands are still, resting near a screen that is dark",
+      b2:"the screen lights up and the hands stop moving entirely",
+      sound:"quiet room tone, one soft notification chime" },
+
+    { id:"error", label:"Un error que resolví",
+      hint:"Algo se rompió, lo perseguiste y encontraste la causa.",
+      shot:"Plano fijo, dos tiempos en el mismo encuadre", lens:"40 mm",
+      move:"Cámara fija", light:"Luz fría azulada que gira a cálida",
+      why:"El error se cuenta sin mover la cámara. Lo que cambia es la luz, y eso basta para que se lea el antes y el después.",
+      en_shot:"static locked-off shot, the same frame throughout", en_lens:"40mm lens",
+      en_move:"completely static camera, no movement at all",
+      en_light:"cold blue light that slowly shifts to warm amber across the shot",
+      b1:"the frame sits in cold blue light, everything still and unresolved",
+      b2:"the light turns warm and one element in the frame settles into place",
+      sound:"silence, then a single low tone" },
+
+    { id:"automatizacion", label:"Una automatización",
+      hint:"Montaste un proceso que corre solo: un flujo, un agente, un webhook.",
+      shot:"Cenital sobre una superficie", lens:"28 mm",
+      move:"Desplazamiento lateral constante", light:"Luz pareja y sin dramatismo, como de taller",
+      why:"Un mecanismo se mira desde arriba y de corrido. El movimiento constante es lo que hace sentir que la cosa no para.",
+      en_shot:"top-down overhead shot of a surface", en_lens:"28mm lens",
+      en_move:"steady constant lateral tracking, never stopping",
+      en_light:"even flat workshop light, no drama, soft shadows",
+      b1:"objects on the surface sit in a line, evenly spaced, unmoving",
+      b2:"the camera keeps tracking and the objects keep coming, endlessly",
+      sound:"a steady mechanical rhythm, quiet" },
+
+    { id:"hito", label:"Un hito personal",
+      hint:"Subiste de nivel, cumpliste una racha, llegaste a un número.",
+      shot:"Contrapicado", lens:"24 mm",
+      move:"Tilt hacia arriba", light:"Contraluz, el sujeto recortado",
+      why:"Subir la cámara es la gramática del logro. A contraluz porque el hito importa por la silueta, no por el detalle.",
+      en_shot:"low angle looking up", en_lens:"24mm wide lens",
+      en_move:"slow tilt upward, single continuous move",
+      en_light:"strong backlight, subject rendered as a silhouette, light haze in the air",
+      b1:"the frame starts low and close, the subject barely readable",
+      b2:"the camera tilts up and the subject is fully backlit against open space",
+      sound:"a rising low drone, no melody" },
+
+    { id:"personal", label:"Algo para los míos",
+      hint:"Lo hiciste para tu familia, tu equipo o alguien concreto.",
+      shot:"Plano cerrado", lens:"85 mm",
+      move:"Cámara quieta, respiración mínima", light:"Luz natural suave, sin fuente visible",
+      why:"Lo personal se filma quieto y cerrado. Cualquier movimiento de cámara aquí convierte el afecto en publicidad.",
+      en_shot:"tight close-up", en_lens:"85mm lens, very shallow depth of field",
+      en_move:"handheld but almost still, only the faintest breathing movement",
+      en_light:"soft natural daylight, no visible source, gentle wraparound",
+      b1:"the subject fills the frame, in focus, unmoving",
+      b2:"nothing changes except a single small gesture, and the shot holds" },
+  ];
+
+  var TONES = {
+    sobrio: { es:"Documental, sin música, sin adornos.", en:"documentary realism, restrained, no stylization, natural texture" },
+    epico:  { es:"Cine de escala, aire y atmósfera.", en:"cinematic scale, atmospheric haze, wide dynamic range, film grain" },
+    calido: { es:"Cercano, grano suave, luz de casa.", en:"intimate and warm, soft grain, gentle contrast, lived-in texture" }
+  };
+
+  var state = { house:"pegaso", kind:"herramienta", ratio:"16:9", tone:"sobrio", subject:"", title:"" };
+
+  function safeGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+  function safeSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+  var saved = safeGet("ti_house");
+  if(saved && HOUSES[saved]) state.house = saved;
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* ── construir los botones de tipo ── */
+  var kindsEl = $("kinds");
+  KINDS.forEach(function(k,i){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.textContent = k.label;
+    b.dataset.k = k.id;
+    b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    kindsEl.appendChild(b);
+  });
+
+  function kind(){
+    for(var i=0;i<KINDS.length;i++){ if(KINDS[i].id===state.kind) return KINDS[i]; }
+    return KINDS[0];
+  }
+
+  function bindSeg(el, key, attr, after){
+    el.addEventListener("click", function(ev){
+      var b = ev.target.closest("button");
+      if(!b || !el.contains(b)) return;
+      Array.prototype.forEach.call(el.querySelectorAll("button"), function(x){
+        x.setAttribute("aria-pressed", x === b ? "true" : "false");
+      });
+      state[key] = b.dataset[attr];
+      if(after) after();
+      render();
+    });
+  }
+
+  bindSeg($("houses"), "house", "h", function(){
+    document.documentElement.setAttribute("data-house", state.house);
+    safeSet("ti_house", state.house);
+  });
+  bindSeg(kindsEl, "kind", "k");
+  bindSeg($("ratios"), "ratio", "r");
+  bindSeg($("tones"), "tone", "t");
+
+  $("subject").addEventListener("input", function(e){ state.subject = e.target.value; render(); });
+  $("title").addEventListener("input", function(e){ state.title = e.target.value; render(); });
+
+  /* estado inicial de la casa */
+  document.documentElement.setAttribute("data-house", state.house);
+  Array.prototype.forEach.call($("houses").querySelectorAll("button"), function(b){
+    b.setAttribute("aria-pressed", b.dataset.h === state.house ? "true" : "false");
+  });
+
+  /* ── render ── */
+  function render(){
+    var k = kind(), h = HOUSES[state.house], t = TONES[state.tone];
+    var subj = state.subject.trim();
+    var placeholder = "A laptop open on a wooden desk, a dashboard glowing on the screen";
+    var shown = subj || placeholder;
+
+    var rows = [
+      ["Casa", h.name],
+      ["Plano", k.shot],
+      ["Lente", k.lens],
+      ["Movimiento", k.move],
+      ["Luz", k.light],
+      ["Formato", state.ratio + " · 5 s · 480p"],
+      ["Tono", t.es],
+      ["Por qué", k.why]
+    ];
+    if(state.title.trim()) rows.unshift(["Logro", state.title.trim()]);
+
+    $("sheet").innerHTML = rows.map(function(r){
+      return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>";
+    }).join("");
+
+    var beats = "0–2s: " + k.b1 + ". 2–5s: " + k.b2 + ".";
+    var sound = k.sound ? " " + cap(k.sound) + "." : "";
+
+    var prompt =
+      cap(shown.replace(/\.$/,"")) + ". " +
+      cap(k.en_shot) + ", " + k.en_lens + ". " +
+      beats + " " +
+      cap(k.en_move) + ". " + cap(k.en_light) + ". " +
+      cap(h.palette) + ". " + cap(t.en) + "." + sound;
+
+    $("out").textContent = prompt;
+    $("out").dataset.value = prompt;
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+    });
+  }
+  function cap(s){ s = String(s); return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  /* hint del tipo */
+  function syncHint(){ $("kindHint").textContent = kind().hint; }
+  kindsEl.addEventListener("click", syncHint);
+  syncHint();
+
+  /* copiar */
+  $("copy").addEventListener("click", function(){
+    var btn = this, text = $("out").dataset.value || "";
+    var done = function(ok){
+      btn.textContent = ok ? "Copiado" : "Selecciónalo y copia";
+      setTimeout(function(){ btn.textContent = "Copiar prompt"; }, 1800);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
+    } else { done(false); }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
