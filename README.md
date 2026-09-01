@@ -33,7 +33,9 @@ Un prompt escrito para cinco segundos y estirado a quince deja al modelo sin ins
 | 10 s | tres tiempos: 0–3, 3–7, 7–10 | un movimiento con una pausa | por API, se paga por segundo |
 | 15 s | cuatro tiempos: 0–3, 3–7, 7–11, 11–15 | un movimiento con dos descansos | por API, se paga por segundo |
 
-En diez segundos no caben dos historias. Cabe la misma, con tiempo para respirar. Si de verdad necesitas tres cosas distintas, genera tres clips de cinco y móntalos: cada corte es una decisión, y un clip largo es una sola toma sin dirección.
+Eso vale **para un plano**. H3 también respeta varios planos con corte dentro del mismo clip: lo probamos pidiendo un cerrado de 0 a 2 s y un general de 2 a 5 s, y el corte cayó exactamente en el segundo 2.
+
+Para que obedezca, el prompt tiene que ir bloqueado y no descrito: anunciar cuántos planos hay antes de describirlos, numerarlos con su franja de segundos, escribir `HARD CUT` como una instrucción en su propio renglón, y darle a cada plano su propio lente. El constructor de secuencia que arma esto solo viene en la próxima versión.
 
 ### Por qué listas y no un campo de texto
 
