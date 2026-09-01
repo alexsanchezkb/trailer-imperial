@@ -23,19 +23,19 @@ Esta página no genera el video. **Decide cómo pedirlo.**
 5. Copias el prompt y lo pegas en [fal.ai](https://fal.ai/tools/minimax-h3-max).
 6. Si quieres, descargas la ficha de dirección como imagen y la adjuntas a tu logro.
 
-### La duración cambia la gramática, no el número
+### Los planos son casillas
 
-Un prompt escrito para cinco segundos y estirado a quince deja al modelo sin instrucciones a mitad de clip, y ahí es donde deriva. Por eso cada duración trae su propia estructura temporal:
+Añades una casilla por plano. Cada una lleva qué se ve, qué tan cerca, y cuántos segundos dura. La suma es la duración del clip, y la herramienta escribe los bloques con sus cortes.
 
-| Duración | Estructura | Movimiento | Dónde se genera |
-|---|---|---|---|
-| 5 s | dos tiempos: 0–2, 2–5 | un solo gesto de cámara | gratis en `fal.ai/tools`, sin registro |
-| 10 s | tres tiempos: 0–3, 3–7, 7–10 | un movimiento con una pausa | por API, se paga por segundo |
-| 15 s | cuatro tiempos: 0–3, 3–7, 7–11, 11–15 | un movimiento con dos descansos | por API, se paga por segundo |
+H3 genera **15 segundos como máximo por vez**. Si te pasas, el prompt sale partido en generaciones de 15 s o menos, listas para pegar por separado y montar después.
 
-Eso vale **para un plano**. H3 también respeta varios planos con corte dentro del mismo clip: lo probamos pidiendo un cerrado de 0 a 2 s y un general de 2 a 5 s, y el corte cayó exactamente en el segundo 2.
+**Tres reglas de secuencia que la herramienta vigila sola:**
 
-Para que obedezca, el prompt tiene que ir bloqueado y no descrito: anunciar cuántos planos hay antes de describirlos, numerarlos con su franja de segundos, escribir `HARD CUT` como una instrucción en su propio renglón, y darle a cada plano su propio lente. El constructor de secuencia que arma esto solo viene en la próxima versión.
+- **La escala tiene que saltar.** Los planos van de detalle a gran general. Entre dos seguidos hay que saltar al menos dos pasos, o el corte se lee como error y no como corte.
+- **El general pide tiempo, el detalle no.** Un plano abierto necesita segundos para que el ojo lo recorra. Casi todo el mundo lo hace al revés.
+- **El orden es la narración.** De general a cerrado sitúas y entras. De cerrado a general revelas el tamaño. Volver al plano inicial cierra el círculo.
+
+Hay cuatro secuencias precargadas —el golpe, revelar, situar y entrar, ir y volver— que reparten los planos y los tiempos por ti. Después mueves lo que quieras.
 
 ### Por qué listas y no un campo de texto
 
