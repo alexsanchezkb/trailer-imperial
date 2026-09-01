@@ -19,8 +19,21 @@ Esta página no genera el video. **Decide cómo pedirlo.**
 1. Eliges tu casa. Si no sabes cuál es, escribes tu apellido y te lo dice.
 2. Eliges qué tipo de logro fue. Cada tipo trae su gramática de dirección.
 3. Eliges el sujeto y el momento de una lista. No hay que escribir en inglés: cada opción ya lo lleva dentro.
-4. Copias el prompt y lo pegas en [fal.ai](https://fal.ai/tools/minimax-h3-max).
-5. Si quieres, descargas la ficha de dirección como imagen y la adjuntas a tu logro.
+4. Eliges la duración: 5, 10 o 15 segundos. No cambia solo el número — cambia la estructura del prompt.
+5. Copias el prompt y lo pegas en [fal.ai](https://fal.ai/tools/minimax-h3-max).
+6. Si quieres, descargas la ficha de dirección como imagen y la adjuntas a tu logro.
+
+### La duración cambia la gramática, no el número
+
+Un prompt escrito para cinco segundos y estirado a quince deja al modelo sin instrucciones a mitad de clip, y ahí es donde deriva. Por eso cada duración trae su propia estructura temporal:
+
+| Duración | Estructura | Movimiento | Dónde se genera |
+|---|---|---|---|
+| 5 s | dos tiempos: 0–2, 2–5 | un solo gesto de cámara | gratis en `fal.ai/tools`, sin registro |
+| 10 s | tres tiempos: 0–3, 3–7, 7–10 | un movimiento con una pausa | por API, se paga por segundo |
+| 15 s | cuatro tiempos: 0–3, 3–7, 7–11, 11–15 | un movimiento con dos descansos | por API, se paga por segundo |
+
+En diez segundos no caben dos historias. Cabe la misma, con tiempo para respirar. Si de verdad necesitas tres cosas distintas, genera tres clips de cinco y móntalos: cada corte es una decisión, y un clip largo es una sola toma sin dirección.
 
 ### Por qué listas y no un campo de texto
 
