@@ -18,22 +18,16 @@
 <title>Tráiler Imperial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 
 <style>
 :root{
-  --bg:#E7E9EC;
-  --surface:#FFFFFF;
-  --surface-2:#F1F3F6;
-  --ink:#14171C;
-  --ink-2:#3D434D;
-  --muted:#727984;
-  --line:#CFD4DB;
-  --line-strong:#A9B1BC;
-  --accent:#2F6BE0;
-  --accent-ink:#FFFFFF;
-  --accent-soft:rgba(47,107,224,.10);
+  --bg:#E7E9EC; --surface:#FFFFFF; --surface-2:#F1F3F6;
+  --ink:#14171C; --ink-2:#3D434D; --muted:#727984;
+  --line:#CFD4DB; --line-strong:#A9B1BC;
+  --accent:#2F6BE0; --accent-ink:#FFFFFF; --accent-soft:rgba(47,107,224,.10);
   --shadow:0 1px 0 rgba(20,23,28,.05), 0 8px 28px -18px rgba(20,23,28,.35);
+  --slate-bg:#0E1013; --slate-ink:#E9EBEF;
 }
 :root[data-house="aguila"]{ --accent:#C62B36; --accent-soft:rgba(198,43,54,.10); }
 :root[data-house="grifo"]{ --accent:#B8860B; --accent-soft:rgba(184,134,11,.12); }
@@ -41,17 +35,10 @@
 
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0E1013;
-    --surface:#171A1F;
-    --surface-2:#1F232A;
-    --ink:#E9EBEF;
-    --ink-2:#B8BEC8;
-    --muted:#828A96;
-    --line:#2A2F37;
-    --line-strong:#3D444E;
-    --accent:#5B92FF;
-    --accent-ink:#0E1013;
-    --accent-soft:rgba(91,146,255,.14);
+    --bg:#0B0D10; --surface:#141719; --surface-2:#1C2025;
+    --ink:#E9EBEF; --ink-2:#B8BEC8; --muted:#828A96;
+    --line:#282C33; --line-strong:#3D444E;
+    --accent:#5B92FF; --accent-ink:#0B0D10; --accent-soft:rgba(91,146,255,.14);
     --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 32px -20px rgba(0,0,0,.9);
   }
   :root:not([data-theme="light"])[data-house="aguila"]{ --accent:#F0616B; --accent-soft:rgba(240,97,107,.14); }
@@ -59,17 +46,10 @@
   :root:not([data-theme="light"])[data-house="pegaso"]{ --accent:#5B92FF; --accent-soft:rgba(91,146,255,.14); }
 }
 :root[data-theme="dark"]{
-  --bg:#0E1013;
-  --surface:#171A1F;
-  --surface-2:#1F232A;
-  --ink:#E9EBEF;
-  --ink-2:#B8BEC8;
-  --muted:#828A96;
-  --line:#2A2F37;
-  --line-strong:#3D444E;
-  --accent:#5B92FF;
-  --accent-ink:#0E1013;
-  --accent-soft:rgba(91,146,255,.14);
+  --bg:#0B0D10; --surface:#141719; --surface-2:#1C2025;
+  --ink:#E9EBEF; --ink-2:#B8BEC8; --muted:#828A96;
+  --line:#282C33; --line-strong:#3D444E;
+  --accent:#5B92FF; --accent-ink:#0B0D10; --accent-soft:rgba(91,146,255,.14);
   --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 32px -20px rgba(0,0,0,.9);
 }
 :root[data-theme="dark"][data-house="aguila"]{ --accent:#F0616B; --accent-soft:rgba(240,97,107,.14); }
@@ -78,81 +58,68 @@
 
 *{box-sizing:border-box;}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
+  margin:0; background:var(--bg); color:var(--ink);
   font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
-  font-size:16px;
-  line-height:1.55;
-  -webkit-font-smoothing:antialiased;
+  font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;
 }
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px 72px;}
 
-/* ── claqueta ─────────────────────────────── */
+/* ══ el cartel ══ */
 .slate{
-  margin:0 0 34px;
-  background:var(--surface);
-  border-bottom:1px solid var(--line);
-  overflow:hidden;
+  position:relative; margin:0 0 34px; overflow:hidden;
+  background:
+    radial-gradient(120% 130% at 50% -20%, #23272E 0%, #101317 46%, #08090B 100%);
+  border-bottom:1px solid #2A2F37;
+}
+.slate::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(100% 90% at 50% 40%, transparent 45%, rgba(0,0,0,.62) 100%);
 }
 .slate-bar{
-  height:16px;
-  background:repeating-linear-gradient(115deg,var(--ink) 0 22px,var(--surface) 22px 44px);
+  height:15px;
+  background:repeating-linear-gradient(115deg,#DFE3E8 0 24px,#0C0E11 24px 48px);
+  opacity:.9;
 }
 .slate-inner{
-  max-width:1180px;margin:0 auto;padding:26px 20px 24px;
-  display:flex;flex-wrap:wrap;gap:18px 28px;align-items:flex-end;justify-content:space-between;
+  position:relative; z-index:1;
+  max-width:1180px;margin:0 auto;padding:40px 20px 34px;
+  display:flex;flex-wrap:wrap;gap:22px 32px;align-items:flex-end;justify-content:space-between;
 }
 h1{
-  font-family:"Anton","Archivo",sans-serif;
-  font-weight:400;
-  font-size:clamp(38px,6.4vw,64px);
-  line-height:.92;
-  letter-spacing:.005em;
-  margin:0;
-  text-transform:uppercase;
+  font-family:"Cinzel","Times New Roman",serif;
+  font-weight:900; font-size:clamp(36px,5.6vw,62px);
+  line-height:1.0; letter-spacing:.03em; margin:0; text-transform:uppercase;
+  background:linear-gradient(174deg,#FBF0BC 0%,#E3C660 26%,#A8801C 48%,#7A5A0E 58%,#E7CC72 76%,#C39B22 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,.55)) drop-shadow(0 10px 26px rgba(196,150,32,.22));
   text-wrap:balance;
 }
-h1 em{font-style:normal;color:var(--accent);}
-.sub{
-  margin:10px 0 0;max-width:52ch;color:var(--ink-2);font-size:15.5px;
+h1 .l2{display:block;letter-spacing:.11em;font-size:.88em;}
+.rule{
+  height:1px;width:min(360px,60vw);margin:18px 0 0;
+  background:linear-gradient(90deg,#8A6B12,rgba(138,107,18,0) 90%);
 }
+.sub{margin:16px 0 0;max-width:46ch;color:#AEB5BF;font-size:15.5px;}
 .stamp{
   font-family:"IBM Plex Mono",ui-monospace,monospace;
-  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--muted);text-align:right;line-height:1.9;white-space:nowrap;
+  font-size:11px;letter-spacing:.15em;text-transform:uppercase;
+  color:#7B838F;text-align:right;line-height:2;white-space:nowrap;
 }
-.stamp b{color:var(--ink);font-weight:600;}
+.stamp b{color:#D9C27A;font-weight:600;}
 
-/* ── rejilla ──────────────────────────────── */
+/* ══ rejilla ══ */
 .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:26px;align-items:start;}
 @media (max-width:900px){ .grid{grid-template-columns:1fr;} }
 
-.panel{
-  background:var(--surface);
-  border:1px solid var(--line);
-  box-shadow:var(--shadow);
-}
+.panel{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);}
 .panel + .panel{margin-top:22px;}
-.panel-head{
-  display:flex;align-items:baseline;gap:12px;
-  padding:14px 20px;border-bottom:1px solid var(--line);
-}
-.panel-head .n{
-  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;
-  letter-spacing:.14em;color:var(--accent);
-}
-.panel-head h2{
-  margin:0;font-family:"Archivo",sans-serif;font-size:13px;font-weight:700;
-  letter-spacing:.13em;text-transform:uppercase;color:var(--ink);
-}
+.panel-head{display:flex;align-items:baseline;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);}
+.panel-head .n{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--accent);}
+.panel-head h2{margin:0;font-size:13px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);}
 .panel-body{padding:20px;display:flex;flex-direction:column;gap:20px;}
 
 label.field{display:flex;flex-direction:column;gap:8px;}
-.lab{
-  font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
-  letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
-}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);}
 .hint{font-size:13px;color:var(--muted);line-height:1.5;}
 
 textarea,input[type=text],select{
@@ -160,86 +127,61 @@ textarea,input[type=text],select{
   background:var(--surface-2);border:1px solid var(--line);border-radius:2px;
   padding:11px 12px;line-height:1.5;
 }
-textarea{resize:vertical;min-height:88px;}
-select{appearance:none;background-image:none;cursor:pointer;}
-textarea:focus-visible,input:focus-visible,select:focus-visible,button:focus-visible{
-  outline:2px solid var(--accent);outline-offset:2px;
+select{
+  cursor:pointer;appearance:none;padding-right:36px;
+  background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);
+  background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;
+  background-size:5px 5px,5px 5px;background-repeat:no-repeat;
 }
+textarea{resize:vertical;min-height:64px;}
+textarea:focus-visible,input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
 
-/* segmentos */
 .seg{display:flex;flex-wrap:wrap;gap:8px;}
 .seg button{
   flex:1 1 auto;min-width:88px;cursor:pointer;
-  font-family:"Archivo",sans-serif;font-size:13px;font-weight:600;
-  letter-spacing:.04em;padding:9px 12px;border-radius:2px;
-  background:var(--surface-2);color:var(--ink-2);
+  font-family:"Archivo",sans-serif;font-size:13px;font-weight:600;letter-spacing:.04em;
+  padding:9px 12px;border-radius:2px;background:var(--surface-2);color:var(--ink-2);
   border:1px solid var(--line);transition:background .12s,color .12s,border-color .12s;
 }
 .seg button:hover{border-color:var(--line-strong);}
-.seg button[aria-pressed="true"]{
-  background:var(--accent);color:var(--accent-ink);border-color:var(--accent);
-}
-.houses button[aria-pressed="true"]{box-shadow:inset 0 0 0 1px var(--surface);}
-.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:-1px;}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);}
 
-
-/* ── escudos ──────────────────────────────── */
+/* ══ escudos ══ */
 .houses{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
 .houses button{
   display:flex;flex-direction:column;align-items:center;gap:8px;
-  padding:16px 8px 12px;cursor:pointer;border-radius:3px;
+  padding:16px 8px 12px;cursor:pointer;border-radius:3px;min-width:0;
   background:var(--surface-2);border:1px solid var(--line);
   transition:border-color .15s,background .15s;
-  min-width:0;
 }
 .houses img{
   width:100%;max-width:104px;height:auto;display:block;
-  filter:grayscale(1) brightness(.5) opacity(.6);
-  transition:filter .2s,transform .2s;
+  filter:grayscale(1) brightness(.5) opacity(.6);transition:filter .2s,transform .2s;
 }
-.houses .hname{
-  font-family:"Archivo",sans-serif;font-size:13.5px;font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
-  transition:color .15s;
-}
-.houses .hrange{
-  font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;
-  color:var(--muted);
-}
+.houses .hname{font-size:13.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);transition:color .15s;}
+.houses .hrange{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);}
 .houses button:hover{border-color:var(--line-strong);}
 .houses button:hover img{filter:grayscale(.35) brightness(.9) opacity(.9);}
-.houses button[aria-pressed="true"]{
-  background:var(--accent-soft);border-color:var(--accent);
-}
-.houses button[aria-pressed="true"] img{
-  filter:none;transform:translateY(-2px);
-}
+.houses button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);}
+.houses button[aria-pressed="true"] img{filter:none;transform:translateY(-2px);}
 .houses button[aria-pressed="true"] .hname{color:var(--accent);}
-@media (max-width:420px){
-  .houses img{max-width:74px;}
-  .houses .hname{font-size:12px;}
-}
+@media (max-width:420px){ .houses img{max-width:74px;} .houses .hname{font-size:12px;} }
 
-/* ── salida ───────────────────────────────── */
-.sheet{
-  font-family:"IBM Plex Mono",ui-monospace,monospace;
-  font-size:12.5px;line-height:1.7;
-}
+.finder{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;}
+.finder label{flex:1 1 200px;}
+.verdict{font-size:13.5px;color:var(--ink-2);min-height:20px;}
+.verdict b{color:var(--accent);}
+
+/* ══ salida ══ */
+.sheet{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.7;}
 .sheet dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0;margin:0;}
-.sheet dt{
-  padding:7px 16px 7px 0;border-bottom:1px solid var(--line);
-  font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
-  white-space:nowrap;font-weight:500;
-}
-.sheet dd{
-  margin:0;padding:7px 0;border-bottom:1px solid var(--line);color:var(--ink);
-}
+.sheet dt{padding:7px 16px 7px 0;border-bottom:1px solid var(--line);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);white-space:nowrap;font-weight:500;}
+.sheet dd{margin:0;padding:7px 0;border-bottom:1px solid var(--line);color:var(--ink);}
 .sheet dl > :nth-last-child(1),.sheet dl > :nth-last-child(2){border-bottom:0;}
 
 .prompt{
-  background:var(--surface-2);border:1px solid var(--line);
-  padding:16px;font-family:"IBM Plex Mono",monospace;
-  font-size:12.5px;line-height:1.75;color:var(--ink);
+  background:var(--surface-2);border:1px solid var(--line);padding:16px;
+  font-family:"IBM Plex Mono",monospace;font-size:12.5px;line-height:1.75;color:var(--ink);
   white-space:pre-wrap;word-break:break-word;max-height:340px;overflow-y:auto;
 }
 .actions{display:flex;flex-wrap:wrap;gap:10px;}
@@ -254,26 +196,20 @@ textarea:focus-visible,input:focus-visible,select:focus-visible,button:focus-vis
 .note{font-size:12.5px;color:var(--muted);}
 .note code{font-family:"IBM Plex Mono",monospace;font-size:11.5px;background:var(--surface-2);padding:1px 5px;border:1px solid var(--line);}
 
-/* reglas */
-.rules{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;}
-.rules li{
-  display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;
-  padding:14px 0;border-bottom:1px solid var(--line);
-}
+#cardWrap{display:none;flex-direction:column;gap:12px;}
+#cardWrap.on{display:flex;}
+#cardImg{width:100%;height:auto;display:block;border:1px solid var(--line);}
+
+/* ══ reglas ══ */
+.rules{list-style:none;margin:0;padding:0;}
+.rules li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px;padding:14px 0;border-bottom:1px solid var(--line);}
 .rules li:last-child{border-bottom:0;padding-bottom:0;}
-.rules .k{
-  font-family:"Anton",sans-serif;font-size:22px;line-height:1;color:var(--accent);
-  font-variant-numeric:tabular-nums;
-}
+.rules .k{font-family:"Cinzel",serif;font-weight:900;font-size:20px;line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums;}
 .rules strong{display:block;font-size:14.5px;font-weight:700;margin-bottom:3px;}
 .rules span{font-size:13.5px;color:var(--ink-2);line-height:1.55;}
 
-footer{
-  margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
-  font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;
-}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;}
 footer a{color:var(--accent);}
-
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
 </style>
 </head>
@@ -283,7 +219,8 @@ footer a{color:var(--accent);}
   <div class="slate-bar"></div>
   <div class="slate-inner">
     <div>
-      <h1>Tráiler<br><em>Imperial</em></h1>
+      <h1>Tráiler<span class="l2">Imperial</span></h1>
+      <div class="rule"></div>
       <p class="sub">Tu logro, convertido en una orden de rodaje para MiniMax&nbsp;H3. Eliges qué pasó; sale el prompt con plano, lente, movimiento y luz ya decididos.</p>
     </div>
     <div class="stamp">
@@ -297,7 +234,6 @@ footer a{color:var(--accent);}
 <div class="wrap">
 <div class="grid">
 
-  <!-- ═══ IZQUIERDA ═══ -->
   <div>
     <section class="panel">
       <div class="panel-head"><span class="n">01</span><h2>Tu casa</h2></div>
@@ -316,7 +252,13 @@ footer a{color:var(--accent);}
             <span class="hname">Pegaso</span><span class="hrange">P – Z</span>
           </button>
         </div>
-        <p class="hint">Tu casa la manda la primera letra de tu apellido. Y pinta el clip: el color domina el encuadre y entra en el prompt como paleta, no como filtro.</p>
+        <div class="finder">
+          <label class="field">
+            <span class="lab">¿No sabes cuál es la tuya?</span>
+            <input type="text" id="apellido" placeholder="Escribe tu apellido" autocomplete="off">
+          </label>
+        </div>
+        <p class="verdict" id="verdict">La manda la primera letra del apellido. Con dos apellidos manda el primero, y los acentos no mueven a nadie.</p>
       </div>
     </section>
 
@@ -332,14 +274,22 @@ footer a{color:var(--accent);}
       <div class="panel-head"><span class="n">03</span><h2>Qué se ve</h2></div>
       <div class="panel-body">
         <label class="field">
-          <span class="lab">El sujeto, en una frase · en inglés</span>
-          <textarea id="subject" placeholder="A laptop open on a wooden desk, a dashboard glowing on the screen"></textarea>
-          <span class="hint">Escribe lo que la cámara ve, no lo que significa. «Una línea que sube en una pantalla» sirve; «mi crecimiento» no. Va en inglés porque el resto del prompt también: si te faltan palabras, con estas se arma casi todo — <b>desk</b> escritorio, <b>screen</b> pantalla, <b>hands</b> manos, <b>window</b> ventana, <b>notebook</b> cuaderno, <b>phone</b> teléfono, <b>chart</b> gráfica, <b>coffee</b> café, <b>cable</b> cable, <b>workshop</b> taller.</span>
+          <span class="lab">El sujeto</span>
+          <select id="subject"></select>
         </label>
         <label class="field">
-          <span class="lab">Título de tu logro (opcional)</span>
-          <input type="text" id="title" placeholder="Vendí mi primera automatización en $250">
-          <span class="hint">Solo se usa para nombrar la ficha. No entra en el prompt.</span>
+          <span class="lab">Momento y luz</span>
+          <select id="moment"></select>
+        </label>
+        <label class="field">
+          <span class="lab">Un detalle más · opcional</span>
+          <textarea id="extra" placeholder="a coffee cup beside the keyboard"></textarea>
+          <span class="hint">Se añade tal cual al prompt. Puedes escribirlo en español y va a funcionar, pero lo medimos: en español el modelo va menos al objeto exacto y respeta peor la luz. En inglés obedece más fino.</span>
+        </label>
+        <label class="field">
+          <span class="lab">Título de tu logro · opcional</span>
+          <input type="text" id="title" placeholder="Vendí mi primera automatización en $250" autocomplete="off">
+          <span class="hint">Solo aparece en la ficha. No entra en el prompt.</span>
         </label>
       </div>
     </section>
@@ -367,12 +317,21 @@ footer a{color:var(--accent);}
     </section>
   </div>
 
-  <!-- ═══ DERECHA ═══ -->
   <div>
     <section class="panel">
       <div class="panel-head"><span class="n">05</span><h2>Ficha de dirección</h2></div>
       <div class="panel-body">
         <div class="sheet"><dl id="sheet"></dl></div>
+        <div class="actions">
+          <button class="btn ghost" id="mkCard" type="button">Descargar la ficha</button>
+        </div>
+        <div id="cardWrap">
+          <img id="cardImg" alt="Ficha de dirección para adjuntar a tu logro">
+          <div class="actions">
+            <a class="btn" id="dl" download="ficha-de-direccion.png">Guardar imagen</a>
+          </div>
+          <p class="note">Adjúntala a tu logro. Si el botón no descarga, mantén pulsada la imagen o haz clic derecho y guarda.</p>
+        </div>
       </div>
     </section>
 
@@ -392,12 +351,12 @@ footer a{color:var(--accent);}
       <div class="panel-head"><span class="n">07</span><h2>Las seis reglas de los cinco segundos</h2></div>
       <div class="panel-body">
         <ul class="rules">
-          <li><span class="k">1</span><div><strong>Un solo movimiento.</strong><span>En cinco segundos cabe un gesto de cámara. Si pides tres, el modelo elige uno y descarta los otros dos sin avisar.</span></div></li>
-          <li><span class="k">2</span><div><strong>Un solo sujeto.</strong><span>Dos personas en cinco segundos son dos personas mal miradas. Deja fuera todo lo que no sostiene el plano.</span></div></li>
-          <li><span class="k">3</span><div><strong>La luz se pide o se inventa.</strong><span>Si no dices de dónde viene la luz, el modelo pone la suya: plana y de escaparate. Nombra la fuente y la dirección.</span></div></li>
-          <li><span class="k">4</span><div><strong>Parte el tiempo en dos.</strong><span>«0–2s… 2–5s…» es lo que convierte un plano fijo en una toma con dirección.</span></div></li>
-          <li><span class="k">5</span><div><strong>Pide lo que se ve.</strong><span>La cámara no filma conceptos. «Crecimiento» no existe; una línea que sube en una pantalla, sí.</span></div></li>
-          <li><span class="k">6</span><div><strong>El movimiento es la emoción.</strong><span>Acercarse es descubrir. Alejarse es revelar el tamaño. Subir es logro. Quieto es respeto. Elige por lo que sientes, no por lo que se ve bonito.</span></div></li>
+          <li><span class="k">I</span><div><strong>Un solo movimiento.</strong><span>En cinco segundos cabe un gesto de cámara. Si pides tres, el modelo elige uno y descarta los otros dos sin avisar.</span></div></li>
+          <li><span class="k">II</span><div><strong>Un solo sujeto.</strong><span>Dos personas en cinco segundos son dos personas mal miradas. Deja fuera todo lo que no sostiene el plano.</span></div></li>
+          <li><span class="k">III</span><div><strong>La luz se pide o se inventa.</strong><span>Si no dices de dónde viene la luz, el modelo pone la suya: plana y de escaparate. Nombra la fuente y la dirección.</span></div></li>
+          <li><span class="k">IV</span><div><strong>Parte el tiempo en dos.</strong><span>«0–2s… 2–5s…» es lo que convierte un plano fijo en una toma con dirección.</span></div></li>
+          <li><span class="k">V</span><div><strong>Pide lo que se ve.</strong><span>La cámara no filma conceptos. «Crecimiento» no existe; una línea que sube en una pantalla, sí.</span></div></li>
+          <li><span class="k">VI</span><div><strong>El movimiento es la emoción.</strong><span>Acercarse es descubrir. Alejarse es revelar el tamaño. Subir es logro. Quieto es respeto.</span></div></li>
         </ul>
       </div>
     </section>
@@ -415,20 +374,58 @@ footer a{color:var(--accent);}
   "use strict";
 
   var HOUSES = {
-    aguila: { name:"Águila", palette:"deep crimson red dominating the frame, with warm amber highlights" },
-    grifo:  { name:"Grifo",  palette:"deep gold and amber dominating the frame, with dark bronze shadows" },
-    pegaso: { name:"Pegaso", palette:"deep cobalt blue dominating the frame, with cold steel highlights" }
+    aguila: { name:"Águila", palette:"deep crimson red dominating the frame, with warm amber highlights", hex:"#C62B36", range:"A–F" },
+    grifo:  { name:"Grifo",  palette:"deep gold and amber dominating the frame, with dark bronze shadows", hex:"#B8860B", range:"G–O" },
+    pegaso: { name:"Pegaso", palette:"deep cobalt blue dominating the frame, with cold steel highlights", hex:"#2F6BE0", range:"P–Z" }
   };
+
+  var SUBJECTS = [
+    { es:"Una pantalla con un panel de datos", en:"a screen showing a data dashboard" },
+    { es:"Una terminal llenándose de texto", en:"a terminal window filling fast with lines of text" },
+    { es:"Manos escribiendo en un teclado", en:"two hands typing on a laptop keyboard" },
+    { es:"Un dedo presionando la tecla enter", en:"two hands on a keyboard, one finger pressing the enter key" },
+    { es:"Un teléfono con una conversación abierta", en:"a phone held in one hand, a chat conversation open on the screen" },
+    { es:"Un portátil abierto sobre un escritorio", en:"a laptop open on a wooden desk" },
+    { es:"Una videollamada en la pantalla", en:"a video call open on a screen, small faces in a grid" },
+    { es:"Papeles y un cuaderno sobre la mesa", en:"papers and an open notebook spread across a table" },
+    { es:"El mostrador de un negocio", en:"the counter of a small shop, seen from behind it" },
+    { es:"Una mesa de restaurante servida", en:"a restaurant table set for service, a small card standing on it" },
+    { es:"Un banco de taller con herramientas", en:"a workshop bench with tools laid out in a row" },
+    { es:"Un pago confirmado en la pantalla", en:"a payment confirmation glowing on a phone screen" },
+    { es:"Una cámara sobre un trípode", en:"a camera on a tripod facing an empty set" },
+    { es:"Un tablero lleno de notas", en:"a wall board covered with small paper notes" },
+    { es:"La fachada de un local en la calle", en:"a shop front on a quiet street" }
+  ];
+
+  var MOMENTS = [
+    { es:"De noche, solo la pantalla ilumina",
+      en:"at night, the screen is the only light source, everything else falls into darkness",
+      ficha:"De noche. La pantalla es la única fuente" },
+    { es:"Primera hora, luz fría de ventana",
+      en:"early morning, cold pale daylight coming through a window, long soft shadows",
+      ficha:"Amanecer. Luz fría de ventana, sombras largas" },
+    { es:"Luz de tarde, cálida y lateral",
+      en:"late afternoon, warm low sunlight coming through a side window, dust in the beam",
+      ficha:"Tarde. Luz cálida lateral, polvo en el haz" },
+    { es:"Luz dura de una sola fuente",
+      en:"hard light from a single source placed to the side, deep shadows, visible falloff",
+      ficha:"Fuente única lateral, dura. Sombras profundas" },
+    { es:"Luz pareja de oficina",
+      en:"flat even office lighting, no visible source, soft shadows",
+      ficha:"Oficina. Luz pareja, sin fuente visible" },
+    { es:"A la intemperie, día nublado",
+      en:"outdoors under an overcast sky, soft diffuse daylight, no hard shadows",
+      ficha:"Exterior nublado. Luz difusa, sin sombra dura" }
+  ];
 
   var KINDS = [
     { id:"herramienta", label:"Una herramienta",
       hint:"Construiste algo que se usa: una app, una página, una extensión.",
       shot:"Detalle que se abre a plano general", lens:"35 mm",
-      move:"Retroceso lento de cámara (dolly back)", light:"Luz dura lateral, una sola fuente, sombras profundas",
+      move:"Retroceso lento de cámara (dolly back)",
       why:"Alejarse revela el tamaño de lo que hiciste. Empiezas en un detalle para que la revelación tenga de dónde salir.",
       en_shot:"extreme close-up opening into a wide shot", en_lens:"35mm lens",
       en_move:"slow dolly back, single continuous move",
-      en_light:"hard side light from a single source, deep shadows, visible falloff",
       b1:"one small detail holds the frame, catching the edge of the light",
       b2:"the camera pulls back and the whole thing is revealed at once, still and complete",
       sound:"a low sustained hum, no music" },
@@ -436,11 +433,10 @@ footer a{color:var(--accent);}
     { id:"venta", label:"Una venta",
       hint:"Cerraste un cliente, cobraste, entregaste.",
       shot:"Plano medio de manos", lens:"50 mm",
-      move:"Acercamiento lento (push in)", light:"Luz cálida de tarde entrando por una ventana lateral",
+      move:"Acercamiento lento (push in)",
       why:"Acercarse es descubrir. La venta se cuenta en las manos y en la pantalla, nunca en una cara sonriendo.",
-      en_shot:"medium shot of hands at a desk", en_lens:"50mm lens, shallow depth of field",
+      en_shot:"medium shot of hands", en_lens:"50mm lens, shallow depth of field",
       en_move:"slow push in, single continuous move",
-      en_light:"warm late-afternoon window light from the side, soft shadows, dust in the beam",
       b1:"the hands are still, resting near a screen that is dark",
       b2:"the screen lights up and the hands stop moving entirely",
       sound:"quiet room tone, one soft notification chime" },
@@ -448,49 +444,45 @@ footer a{color:var(--accent);}
     { id:"error", label:"Un error que resolví",
       hint:"Algo se rompió, lo perseguiste y encontraste la causa.",
       shot:"Plano fijo, dos tiempos en el mismo encuadre", lens:"40 mm",
-      move:"Cámara fija", light:"Luz fría azulada que gira a cálida",
+      move:"Cámara fija",
       why:"El error se cuenta sin mover la cámara. Lo que cambia es la luz, y eso basta para que se lea el antes y el después.",
       en_shot:"static locked-off shot, the same frame throughout", en_lens:"40mm lens",
       en_move:"completely static camera, no movement at all",
-      en_light:"cold blue light that slowly shifts to warm amber across the shot",
-      b1:"the frame sits in cold blue light, everything still and unresolved",
-      b2:"the light turns warm and one element in the frame settles into place",
+      b1:"the frame sits cold and unresolved, nothing moving",
+      b2:"the light shifts warmer and one element in the frame settles into place",
       sound:"silence, then a single low tone" },
 
     { id:"automatizacion", label:"Una automatización",
       hint:"Montaste un proceso que corre solo: un flujo, un agente, un webhook.",
       shot:"Cenital sobre una superficie", lens:"28 mm",
-      move:"Desplazamiento lateral constante", light:"Luz pareja y sin dramatismo, como de taller",
+      move:"Desplazamiento lateral constante",
       why:"Un mecanismo se mira desde arriba y de corrido. El movimiento constante es lo que hace sentir que la cosa no para.",
-      en_shot:"top-down overhead shot of a surface", en_lens:"28mm lens",
+      en_shot:"top-down overhead shot", en_lens:"28mm lens",
       en_move:"steady constant lateral tracking, never stopping",
-      en_light:"even flat workshop light, no drama, soft shadows",
-      b1:"objects on the surface sit in a line, evenly spaced, unmoving",
-      b2:"the camera keeps tracking and the objects keep coming, endlessly",
+      b1:"everything sits in line, evenly spaced, unmoving",
+      b2:"the camera keeps tracking and it keeps coming, endlessly",
       sound:"a steady mechanical rhythm, quiet" },
 
     { id:"hito", label:"Un hito personal",
       hint:"Subiste de nivel, cumpliste una racha, llegaste a un número.",
       shot:"Contrapicado", lens:"24 mm",
-      move:"Tilt hacia arriba", light:"Contraluz, el sujeto recortado",
+      move:"Tilt hacia arriba",
       why:"Subir la cámara es la gramática del logro. A contraluz porque el hito importa por la silueta, no por el detalle.",
       en_shot:"low angle looking up", en_lens:"24mm wide lens",
       en_move:"slow tilt upward, single continuous move",
-      en_light:"strong backlight, subject rendered as a silhouette, light haze in the air",
-      b1:"the frame starts low and close, the subject barely readable",
-      b2:"the camera tilts up and the subject is fully backlit against open space",
+      b1:"the frame starts low and close, barely readable",
+      b2:"the camera tilts up and the subject stands against open space",
       sound:"a rising low drone, no melody" },
 
     { id:"personal", label:"Algo para los míos",
       hint:"Lo hiciste para tu familia, tu equipo o alguien concreto.",
       shot:"Plano cerrado", lens:"85 mm",
-      move:"Cámara quieta, respiración mínima", light:"Luz natural suave, sin fuente visible",
+      move:"Cámara quieta, respiración mínima",
       why:"Lo personal se filma quieto y cerrado. Cualquier movimiento de cámara aquí convierte el afecto en publicidad.",
       en_shot:"tight close-up", en_lens:"85mm lens, very shallow depth of field",
       en_move:"handheld but almost still, only the faintest breathing movement",
-      en_light:"soft natural daylight, no visible source, gentle wraparound",
       b1:"the subject fills the frame, in focus, unmoving",
-      b2:"nothing changes except a single small gesture, and the shot holds" },
+      b2:"nothing changes except a single small gesture, and the shot holds" }
   ];
 
   var TONES = {
@@ -499,38 +491,36 @@ footer a{color:var(--accent);}
     calido: { es:"Cercano, grano suave, luz de casa.", en:"intimate and warm, soft grain, gentle contrast, lived-in texture" }
   };
 
-  var state = { house:"pegaso", kind:"herramienta", ratio:"16:9", tone:"sobrio", subject:"", title:"" };
+  var state = { house:"pegaso", kind:"herramienta", subject:0, moment:0, ratio:"16:9", tone:"sobrio", extra:"", title:"" };
 
   function safeGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
   function safeSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-
   var saved = safeGet("ti_house");
   if(saved && HOUSES[saved]) state.house = saved;
 
   var $ = function(id){ return document.getElementById(id); };
 
-  /* ── construir los botones de tipo ── */
-  var kindsEl = $("kinds");
   KINDS.forEach(function(k,i){
     var b = document.createElement("button");
-    b.type = "button";
-    b.textContent = k.label;
-    b.dataset.k = k.id;
-    b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
-    kindsEl.appendChild(b);
+    b.type="button"; b.textContent=k.label; b.dataset.k=k.id;
+    b.setAttribute("aria-pressed", i===0 ? "true":"false");
+    $("kinds").appendChild(b);
+  });
+  SUBJECTS.forEach(function(s,i){
+    var o=document.createElement("option"); o.value=i; o.textContent=s.es; $("subject").appendChild(o);
+  });
+  MOMENTS.forEach(function(m,i){
+    var o=document.createElement("option"); o.value=i; o.textContent=m.es; $("moment").appendChild(o);
   });
 
-  function kind(){
-    for(var i=0;i<KINDS.length;i++){ if(KINDS[i].id===state.kind) return KINDS[i]; }
-    return KINDS[0];
-  }
+  function kind(){ for(var i=0;i<KINDS.length;i++){ if(KINDS[i].id===state.kind) return KINDS[i]; } return KINDS[0]; }
 
-  function bindSeg(el, key, attr, after){
+  function bindSeg(el,key,attr,after){
     el.addEventListener("click", function(ev){
       var b = ev.target.closest("button");
       if(!b || !el.contains(b)) return;
       Array.prototype.forEach.call(el.querySelectorAll("button"), function(x){
-        x.setAttribute("aria-pressed", x === b ? "true" : "false");
+        x.setAttribute("aria-pressed", x===b ? "true":"false");
       });
       state[key] = b.dataset[attr];
       if(after) after();
@@ -538,36 +528,52 @@ footer a{color:var(--accent);}
     });
   }
 
-  bindSeg($("houses"), "house", "h", function(){
+  function paintHouse(){
     document.documentElement.setAttribute("data-house", state.house);
     safeSet("ti_house", state.house);
-  });
-  bindSeg(kindsEl, "kind", "k");
-  bindSeg($("ratios"), "ratio", "r");
-  bindSeg($("tones"), "tone", "t");
+    Array.prototype.forEach.call($("houses").querySelectorAll("button"), function(b){
+      b.setAttribute("aria-pressed", b.dataset.h===state.house ? "true":"false");
+    });
+  }
 
-  $("subject").addEventListener("input", function(e){ state.subject = e.target.value; render(); });
+  bindSeg($("houses"),"house","h",paintHouse);
+  bindSeg($("kinds"),"kind","k",function(){ $("kindHint").textContent = kind().hint; });
+  bindSeg($("ratios"),"ratio","r");
+  bindSeg($("tones"),"tone","t");
+
+  $("subject").addEventListener("change", function(e){ state.subject = +e.target.value; render(); });
+  $("moment").addEventListener("change", function(e){ state.moment = +e.target.value; render(); });
+  $("extra").addEventListener("input", function(e){ state.extra = e.target.value; render(); });
   $("title").addEventListener("input", function(e){ state.title = e.target.value; render(); });
 
-  /* estado inicial de la casa */
-  document.documentElement.setAttribute("data-house", state.house);
-  Array.prototype.forEach.call($("houses").querySelectorAll("button"), function(b){
-    b.setAttribute("aria-pressed", b.dataset.h === state.house ? "true" : "false");
+  /* ── buscador de casa por apellido ── */
+  function sinAcento(s){
+    return s.normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/Ñ/g,"N").replace(/ñ/g,"n");
+  }
+  $("apellido").addEventListener("input", function(e){
+    var raw = e.target.value.trim();
+    if(!raw){ $("verdict").innerHTML = "La manda la primera letra del apellido. Con dos apellidos manda el primero, y los acentos no mueven a nadie."; return; }
+    var c = sinAcento(raw).toUpperCase().replace(/[^A-Z]/g,"").charAt(0);
+    if(!c){ $("verdict").textContent = "Eso no empieza por letra. Prueba otra vez."; return; }
+    var h = c <= "F" ? "aguila" : (c <= "O" ? "grifo" : "pegaso");
+    state.house = h; paintHouse(); render();
+    $("verdict").innerHTML = raw.charAt(0).toUpperCase()+raw.slice(1) +
+      " empieza por <b>" + c + "</b>, así que eres de la <b>Casa del " + HOUSES[h].name + "</b> (" + HOUSES[h].range + ").";
   });
 
   /* ── render ── */
   function render(){
-    var k = kind(), h = HOUSES[state.house], t = TONES[state.tone];
-    var subj = state.subject.trim();
-    var placeholder = "A laptop open on a wooden desk, a dashboard glowing on the screen";
-    var shown = subj || placeholder;
+    var k=kind(), h=HOUSES[state.house], t=TONES[state.tone];
+    var s=SUBJECTS[state.subject], m=MOMENTS[state.moment];
+    var extra = state.extra.trim().replace(/\.$/,"");
 
     var rows = [
       ["Casa", h.name],
       ["Plano", k.shot],
       ["Lente", k.lens],
       ["Movimiento", k.move],
-      ["Luz", k.light],
+      ["Luz", m.ficha],
+      ["Sujeto", s.es + (extra ? " · " + extra : "")],
       ["Formato", state.ratio + " · 5 s · 480p"],
       ["Tono", t.es],
       ["Por qué", k.why]
@@ -575,49 +581,143 @@ footer a{color:var(--accent);}
     if(state.title.trim()) rows.unshift(["Logro", state.title.trim()]);
 
     $("sheet").innerHTML = rows.map(function(r){
-      return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>";
+      return "<dt>"+esc(r[0])+"</dt><dd>"+esc(r[1])+"</dd>";
     }).join("");
 
-    var beats = "0–2s: " + k.b1 + ". 2–5s: " + k.b2 + ".";
-    var sound = k.sound ? " " + cap(k.sound) + "." : "";
-
+    var subj = s.en + (extra ? ", " + extra : "");
     var prompt =
-      cap(shown.replace(/\.$/,"")) + ". " +
+      cap(subj) + ", " + m.en + ". " +
       cap(k.en_shot) + ", " + k.en_lens + ". " +
-      beats + " " +
-      cap(k.en_move) + ". " + cap(k.en_light) + ". " +
-      cap(h.palette) + ". " + cap(t.en) + "." + sound;
+      "0–2s: " + k.b1 + ". 2–5s: " + k.b2 + ". " +
+      cap(k.en_move) + ". " +
+      cap(h.palette) + ". " + cap(t.en) + "." +
+      (k.sound ? " " + cap(k.sound) + "." : "");
 
     $("out").textContent = prompt;
     $("out").dataset.value = prompt;
+    window.__rows = rows;
+    $("cardWrap").classList.remove("on");
   }
 
-  function esc(s){
-    return String(s).replace(/[&<>"']/g, function(c){
-      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
-    });
-  }
-  function cap(s){ s = String(s); return s.charAt(0).toUpperCase() + s.slice(1); }
+  function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
+  function cap(s){ s=String(s); return s.charAt(0).toUpperCase()+s.slice(1); }
 
-  /* hint del tipo */
-  function syncHint(){ $("kindHint").textContent = kind().hint; }
-  kindsEl.addEventListener("click", syncHint);
-  syncHint();
-
-  /* copiar */
   $("copy").addEventListener("click", function(){
-    var btn = this, text = $("out").dataset.value || "";
-    var done = function(ok){
-      btn.textContent = ok ? "Copiado" : "Selecciónalo y copia";
-      setTimeout(function(){ btn.textContent = "Copiar prompt"; }, 1800);
-    };
+    var btn=this, text=$("out").dataset.value||"";
+    var done=function(ok){ btn.textContent = ok?"Copiado":"Selecciónalo y copia";
+      setTimeout(function(){ btn.textContent="Copiar prompt"; },1800); };
     if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(false); });
-    } else { done(false); }
+      navigator.clipboard.writeText(text).then(function(){done(true);},function(){done(false);});
+    } else done(false);
   });
 
+  /* ── la ficha como imagen ── */
+  $("mkCard").addEventListener("click", function(){
+    var btn=this; btn.textContent="Dibujando…";
+    drawCard(function(url){
+      $("cardImg").src = url;
+      $("dl").href = url;
+      $("cardWrap").classList.add("on");
+      btn.textContent="Descargar la ficha";
+    });
+  });
+
+  function drawCard(cb){
+    var W=1080, S=2, PAD=72, h=HOUSES[state.house];
+    var rows=window.__rows||[], prompt=$("out").dataset.value||"";
+
+    // ── medir antes de dibujar ──
+    var probe=document.createElement("canvas").getContext("2d");
+    probe.font='400 19px "IBM Plex Mono", monospace';
+    var blocks=rows.map(function(r){
+      var lines=wrap(probe, String(r[1]), W-PAD*2-215);
+      return { label:String(r[0]).toUpperCase(), lines:lines, h:Math.max(1,lines.length)*27+16 };
+    });
+    probe.font='400 16px "IBM Plex Mono", monospace';
+    var pLines=wrap(probe, prompt, W-PAD*2-56);
+
+    var yTop=104, headH=214;
+    var rowsH=blocks.reduce(function(a,b){return a+b.h;},0);
+    var promptH=44+pLines.length*24+30;
+    var H=Math.round(yTop+headH+rowsH+40+promptH+120);
+
+    var c=document.createElement("canvas"); c.width=W*S; c.height=H*S;
+    var x=c.getContext("2d"); x.scale(S,S);
+
+    var g=x.createRadialGradient(W/2,-160,80,W/2,H*.55,H*1.1);
+    g.addColorStop(0,"#23272E"); g.addColorStop(.5,"#101317"); g.addColorStop(1,"#08090B");
+    x.fillStyle=g; x.fillRect(0,0,W,H);
+
+    x.save(); x.beginPath(); x.rect(0,0,W,26); x.clip();
+    x.fillStyle="#0C0E11"; x.fillRect(0,0,W,26);
+    x.fillStyle="#DFE3E8";
+    for(var i=-40;i<W+60;i+=52){ x.beginPath(); x.moveTo(i,26); x.lineTo(i+26,0); x.lineTo(i+52,0); x.lineTo(i+26,26); x.closePath(); x.fill(); }
+    x.restore();
+
+    var img=new Image();
+    img.onload=function(){ paint(img); };
+    img.onerror=function(){ paint(null); };
+    img.src=document.querySelector('#houses button[data-h="'+state.house+'"] img').src;
+
+    function paint(shield){
+      var y=yTop;
+      if(shield){
+        var sh=230, sw=shield.width*sh/shield.height;
+        x.drawImage(shield, W-PAD-sw, y-14, sw, sh);
+      }
+      x.fillStyle="#C39B22";
+      x.font='900 62px Cinzel, serif'; x.fillText("TRÁILER", PAD, y+52);
+      x.font='900 54px Cinzel, serif'; x.fillText("IMPERIAL", PAD, y+114);
+      x.strokeStyle="#8A6B12"; x.lineWidth=1;
+      x.beginPath(); x.moveTo(PAD,y+146); x.lineTo(PAD+300,y+146); x.stroke();
+      x.fillStyle="#7B838F"; x.font='500 17px "IBM Plex Mono", monospace';
+      x.fillText("CASA DEL "+h.name.toUpperCase()+"  ·  JUEGOS IMPERIALES V3", PAD, y+184);
+
+      var ry=y+headH+36;
+      blocks.forEach(function(b){
+        x.fillStyle="#6E7681"; x.font='500 14px "IBM Plex Mono", monospace';
+        x.fillText(b.label, PAD, ry);
+        x.fillStyle="#E9EBEF"; x.font='400 19px "IBM Plex Mono", monospace';
+        b.lines.forEach(function(ln,i){ x.fillText(ln, PAD+215, ry+i*27); });
+        x.strokeStyle="rgba(255,255,255,.08)"; x.lineWidth=1;
+        x.beginPath(); x.moveTo(PAD,ry+b.h-20); x.lineTo(W-PAD,ry+b.h-20); x.stroke();
+        ry+=b.h;
+      });
+
+      // el prompt, dentro de su recuadro
+      var by=ry+22, bh=promptH;
+      x.fillStyle="rgba(255,255,255,.035)"; x.fillRect(PAD,by,W-PAD*2,bh);
+      x.strokeStyle="rgba(255,255,255,.10)"; x.lineWidth=1; x.strokeRect(PAD+.5,by+.5,W-PAD*2-1,bh-1);
+      x.fillStyle=h.hex; x.fillRect(PAD,by,3,bh);
+      x.fillStyle="#6E7681"; x.font='500 13px "IBM Plex Mono", monospace';
+      x.fillText("EL PROMPT QUE SALE DE AQUÍ", PAD+28, by+30);
+      x.fillStyle="#C4CAD3"; x.font='400 16px "IBM Plex Mono", monospace';
+      pLines.forEach(function(ln,i){ x.fillText(ln, PAD+28, by+58+i*24); });
+
+      x.fillStyle=h.hex; x.fillRect(PAD, H-84, 46, 3);
+      x.fillStyle="#8B939E"; x.font='500 17px "IBM Plex Mono", monospace';
+      x.fillText("trailer-imperial.vercel.app", PAD, H-48);
+
+      c.toBlob(function(b){ cb(URL.createObjectURL(b)); }, "image/png");
+    }
+  }
+
+  function wrap(ctx, text, max){
+    var words=String(text).split(" "), lines=[], cur="";
+    words.forEach(function(w){
+      var probe = cur ? cur+" "+w : w;
+      if(ctx.measureText(probe).width > max && cur){ lines.push(cur); cur=w; }
+      else cur=probe;
+    });
+    if(cur) lines.push(cur);
+    return lines;
+  }
+
+  paintHouse();
+  $("kindHint").textContent = kind().hint;
   render();
 })();
 </script>
+
 </body>
 </html>

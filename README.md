@@ -16,10 +16,17 @@ Esta página no genera el video. **Decide cómo pedirlo.**
 
 ## Cómo funciona
 
-1. Eliges tu casa. El color entra en el prompt como paleta del encuadre.
-2. Eliges qué tipo de logro fue. Cada tipo tiene su gramática de dirección.
-3. Describes lo que la cámara ve, en una frase.
+1. Eliges tu casa. Si no sabes cuál es, escribes tu apellido y te lo dice.
+2. Eliges qué tipo de logro fue. Cada tipo trae su gramática de dirección.
+3. Eliges el sujeto y el momento de una lista. No hay que escribir en inglés: cada opción ya lo lleva dentro.
 4. Copias el prompt y lo pegas en [fal.ai](https://fal.ai/tools/minimax-h3-max).
+5. Si quieres, descargas la ficha de dirección como imagen y la adjuntas a tu logro.
+
+### Por qué listas y no un campo de texto
+
+H3 obedece mejor en inglés, y pedirle a la gente que escriba en inglés es una barrera. Lo medimos: generamos el mismo prompt en los dos idiomas, con la misma imagen de partida. En español el movimiento de cámara y la composición salen igual de bien, pero el modelo va menos al objeto exacto — pedimos «la tecla enter» y devolvió un teclado genérico — y respeta peor la luz.
+
+Con listas nadie traduce nada: eliges en español y sale inglés escrito por alguien que sabe qué pedirle a una cámara. El campo libre sigue ahí para quien quiera precisar.
 
 ## Las seis gramáticas
 
