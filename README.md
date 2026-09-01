@@ -75,3 +75,7 @@ MIT. Úsalo, cámbialo, pásalo.
 ---
 
 Alexander Sánchez · Casa Pegaso 🔵
+
+[github.com/alexsanchezkb/trailer-imperial](https://github.com/alexsanchezkb/trailer-imperial) · [trailer-imperial.vercel.app](https://trailer-imperial.vercel.app)
+
+Los escudos de las tres casas son de la comunidad Imperio Agéntico.
