@@ -211,6 +211,22 @@ textarea:focus-visible,input:focus-visible,select:focus-visible,button:focus-vis
 footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;}
 footer a{color:var(--accent);}
 
+.shot-head{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.shot-rm{cursor:pointer;background:none;border:0;padding:3px 8px;border-radius:3px;
+  color:var(--accent);opacity:.6;font-family:"Archivo",sans-serif;font-size:11.5px;
+  letter-spacing:.05em;transition:opacity .15s,background .15s;}
+.shot-rm:hover{opacity:1;background:var(--accent-soft);}
+.txtwrap{position:relative;display:block;}
+.txtwrap input[type=text]{padding-right:34px;}
+.txtwrap .clr{position:absolute;right:5px;top:50%;transform:translateY(-50%);
+  width:24px;height:24px;padding:0;line-height:22px;text-align:center;
+  border:0;border-radius:50%;cursor:pointer;background:none;
+  color:var(--muted);font-size:17px;display:none;}
+.txtwrap.has .clr{display:block;}
+.txtwrap .clr:hover{color:var(--ink);background:var(--line);}
+input[type=text]::placeholder,textarea::placeholder{color:var(--muted);opacity:.6;}
+.preset{color:var(--muted);}
+
 @media (max-width:640px){
   .wrap{padding:0 14px 60px;}
   .slate-inner{padding:30px 14px 26px;gap:16px;}
@@ -287,6 +303,8 @@ html,body{max-width:100%;overflow-x:hidden;}
     <section class="panel">
       <div class="panel-head"><span class="n">03</span><h2>Los planos</h2></div>
       <div class="panel-body">
+        <p class="intro">Un clip se puede contar con varios planos. Cada casilla de abajo es uno: <b>qué se ve, qué tan cerca está la cámara y cuánto dura</b>. La suma es el clip.<br><br>
+        Dos costumbres que suelen ayudar: que <b>la escala salte</b> entre un plano y el siguiente, porque dos planos parecidos seguidos se leen más como un brinco que como un corte; y que <b>los planos abiertos duren un poco más</b>, porque el ojo tarda en recorrerlos. No son leyes: son el punto de partida.</p>
         <label class="field">
           <span class="lab">Cómo lo quieres narrar</span>
           <select id="seq"></select>
@@ -297,16 +315,18 @@ html,body{max-width:100%;overflow-x:hidden;}
           <button class="btn ghost" id="addShot" type="button">Añadir plano</button>
           <span class="total" id="total"></span>
         </div>
-        <div class="tl" id="tl"></div>
+        <div class="tlwrap"><div class="tl" id="tl"></div><div class="tlfree" id="tlfree" hidden></div></div>
         <p class="warn" id="warn"></p>
         <label class="field">
           <span class="lab">Momento y luz · igual para todo el clip</span>
-          <select id="moment"></select>
+          <select id="moment" class="preset"></select>
+          <div class="txtwrap"><input type="text" id="momentTxt" placeholder="o descríbela tú: una sola bombilla colgando sobre la mesa…" autocomplete="off" aria-label="Cómo es la luz">
+          <button type="button" class="clr" id="momentClr" aria-label="Borrar">×</button></div>
         </label>
         <label class="field">
           <span class="lab">Un detalle más · opcional</span>
           <textarea id="extra" placeholder="a coffee cup beside the keyboard"></textarea>
-          <span class="hint">Se añade al primer plano. Puedes escribirlo en español y va a funcionar, pero lo medimos: en español el modelo va menos al objeto exacto y respeta peor la luz.</span>
+          <span class="hint">Se añade al primer plano. Puedes escribirlo en español y va a funcionar, pero lo medimos: en español el modelo va menos al objeto exacto y sigue con menos precisión las indicaciones de luz.</span>
         </label>
         <label class="field">
           <span class="lab">Título de tu logro · opcional</span>
@@ -317,7 +337,26 @@ html,body{max-width:100%;overflow-x:hidden;}
     </section>
 
     <section class="panel">
-      <div class="panel-head"><span class="n">04</span><h2>Formato y tono</h2></div>
+      <div class="panel-head"><span class="n">04</span><h2>El sonido</h2></div>
+      <div class="panel-body">
+        <p class="intro">H3 genera el audio en la misma pasada, pero <b>solo si se lo pides</b>. Lo medimos: un clip con línea de sonido sale a −23 dB y uno sin ella a −48 dB. Es la diferencia entre que se oiga algo y que no se oiga nada.</p>
+        <label class="field">
+          <span class="lab">Qué se escucha</span>
+          <select id="sound" class="preset"></select>
+          <div class="txtwrap"><input type="text" id="soundTxt" placeholder="o descríbelo tú: pasos sobre grava y una puerta que se cierra…" autocomplete="off" aria-label="Qué se escucha">
+          <button type="button" class="clr" id="soundClr" aria-label="Borrar">×</button></div>
+          <span class="hint" id="soundHint"></span>
+        </label>
+        <label class="field">
+          <span class="lab">Si alguien habla · opcional</span>
+          <textarea id="dialogo" placeholder="Escribe la frase exacta, tal como quieres oírla."></textarea>
+          <span class="hint">H3 genera la voz y sincroniza los labios en la misma pasada: no hay que montar audio aparte. Cuenta unas <b>dos palabras y media por segundo</b>, así que en cinco segundos caben doce o trece. Si escribes más, el modelo acelera o corta.</span>
+        </label>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><span class="n">05</span><h2>Formato y tono</h2></div>
       <div class="panel-body">
         <label class="field">
           <span class="lab">Dónde se va a ver</span>
@@ -341,7 +380,7 @@ html,body{max-width:100%;overflow-x:hidden;}
 
   <div>
     <section class="panel">
-      <div class="panel-head"><span class="n">05</span><h2>Ficha de dirección</h2></div>
+      <div class="panel-head"><span class="n">06</span><h2>Ficha de dirección</h2></div>
       <div class="panel-body">
         <div class="sheet"><dl id="sheet"></dl></div>
         <div class="actions">
@@ -358,30 +397,30 @@ html,body{max-width:100%;overflow-x:hidden;}
     </section>
 
     <section class="panel">
-      <div class="panel-head"><span class="n">06</span><h2>El prompt</h2></div>
+      <div class="panel-head"><span class="n">07</span><h2>El prompt</h2></div>
       <div class="panel-body">
         <div class="prompt" id="out"></div>
         <div class="actions">
           <button class="btn" id="copy" type="button">Copiar prompt</button>
           <a class="btn ghost" id="open" href="https://fal.ai/tools/minimax-h3-max" target="_blank" rel="noopener noreferrer">Abrir fal.ai</a>
         </div>
-        <p class="note">Va en inglés porque H3 obedece mejor en inglés. Los clips de 5 s se prueban gratis en <code>fal.ai/tools</code>, sin registro. Los de 10 y 15 s van por la página del modelo y se pagan por segundo. <b>Esto arma un plano.</b> H3 también respeta varios planos con corte dentro del mismo clip — lo probamos y el corte cae donde se lo pidas —, pero eso hay que escribirlo por bloques. Va en la próxima versión.</p>
+        <p class="note">Va en inglés porque H3 obedece mejor en inglés. Los clips de <b>5 s se prueban gratis</b> en <code>fal.ai/tools</code>, sin registro. A partir de ahí se va por la página del modelo y se paga por segundo: unos 20 céntimos los 10 s en la calidad buena, mientras dure la tarifa de lanzamiento. H3 genera <b>15 s como máximo por vez</b>, así que si te pasas el prompt sale partido en generaciones que luego montas.</p>
       </div>
     </section>
 
     <section class="panel">
-      <div class="panel-head"><span class="n">07</span><h2>Cómo se encadenan los planos</h2></div>
+      <div class="panel-head"><span class="n">08</span><h2>Cómo se encadenan los planos</h2></div>
       <div class="panel-body">
         <ul class="rules">
-          <li><span class="k">I</span><div><strong>La escala tiene que saltar.</strong><span>Los planos van de detalle a gran general. Entre dos planos seguidos hay que saltar al menos dos pasos. Un general seguido de otro casi igual no se lee como corte: se lee como error.</span></div></li>
-          <li><span class="k">II</span><div><strong>El general pide tiempo, el detalle no.</strong><span>Un plano abierto necesita segundos para que el ojo lo recorra. Un detalle se lee en uno. Casi todo el mundo lo hace al revés y el clip queda lento al principio y atropellado al final.</span></div></li>
+          <li><span class="k">I</span><div><strong>Que la escala salte.</strong><span>Los planos van de detalle a gran general. Entre dos seguidos conviene saltar dos pasos o más: dos planos parecidos se leen como un brinco de cámara antes que como un corte.</span></div></li>
+          <li><span class="k">II</span><div><strong>El abierto pide tiempo, el detalle no tanto.</strong><span>Un plano general se recorre con la mirada y eso lleva segundos. Un detalle se lee en uno. Repartir al revés suele dejar el clip lento al principio y atropellado al final.</span></div></li>
           <li><span class="k">III</span><div><strong>El orden es la narración.</strong><span>De general a cerrado sitúas y entras. De cerrado a general revelas el tamaño. Empezar y terminar en el mismo plano cierra el círculo. No hay más misterio.</span></div></li>
         </ul>
       </div>
     </section>
 
     <section class="panel">
-      <div class="panel-head"><span class="n">08</span><h2>Las seis reglas de cada plano</h2></div>
+      <div class="panel-head"><span class="n">09</span><h2>Las seis reglas de cada plano</h2></div>
       <div class="panel-body">
         <ul class="rules">
           <li><span class="k">I</span><div><strong>Un solo movimiento por plano.</strong><span>En un plano cabe un gesto de cámara. Si pides tres, el modelo elige uno y descarta los otros dos sin avisar.</span></div></li>
@@ -532,6 +571,23 @@ html,body{max-width:100%;overflow-x:hidden;}
   };
 
   // ── planos, ordenados por escala: 1 detalle … 5 gran general ──
+  var SOUNDS = [
+    { es:"Ambiente y nada más", en:"quiet room tone only, no music",
+      hint:"El zumbido del sitio. Es lo que hace que un plano parezca grabado y no generado." },
+    { es:"Ambiente + un sonido puntual", en:"quiet room tone with one single sharp sound at the key moment, no music",
+      hint:"La tecla, el clic, el aviso que llega. Un solo sonido, en el momento que importa." },
+    { es:"Un zumbido grave sostenido", en:"a low sustained hum, no music",
+      hint:"Tensión sin música. Es el que usamos en el clip de la tecla enter." },
+    { es:"Ruido de sitio con gente", en:"ambient background chatter and movement of a busy place, no music",
+      hint:"Para mostradores, restaurantes, oficinas con vida." },
+    { es:"Exterior: viento y calle", en:"outdoor ambience, wind and distant traffic, no music",
+      hint:"Para fachadas, calles y todo lo que pasa fuera." },
+    { es:"Música suave de fondo", en:"soft minimal background music, low in the mix",
+      hint:"Bájala siempre. Si la música tapa el ambiente, el clip se vuelve anuncio." },
+    { es:"Silencio del todo", en:"complete silence, no sound at all",
+      hint:"Se pide a propósito. El silencio buscado se nota; el silencio por olvido parece un fallo." }
+  ];
+
   var SHOTS = [
     { e:1, es:"Detalle · 85 mm · cámara quieta",
       en:"extreme close-up, 85mm lens, camera locked off, no movement" },
@@ -575,7 +631,7 @@ html,body{max-width:100%;overflow-x:hidden;}
   var MAXCLIP = 15;   // techo de H3 por generación
 
   var state = { house:"pegaso", kind:"herramienta", moment:0, ratio:"16:9",
-                tone:"sobrio", extra:"", title:"", seq:1, shots:[] };
+                tone:"sobrio", extra:"", title:"", seq:1, sound:1, soundTxt:"", momentTxt:"", dialogo:"", shots:[] };
 
   function safeGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
   function safeSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
@@ -593,6 +649,9 @@ html,body{max-width:100%;overflow-x:hidden;}
   MOMENTS.forEach(function(m,i){
     var o=document.createElement("option"); o.value=i; o.textContent=m.es; $("moment").appendChild(o);
   });
+  SOUNDS.forEach(function(s,i){
+    var o=document.createElement("option"); o.value=i; o.textContent=s.es; $("sound").appendChild(o);
+  });
   SEQS.forEach(function(s,i){
     var o=document.createElement("option"); o.value=i; o.textContent=s.es; $("seq").appendChild(o);
   });
@@ -603,9 +662,9 @@ html,body{max-width:100%;overflow-x:hidden;}
     var s=SEQS[state.seq];
     $("seqHint").textContent = s.hint;
     if(s.shots){
-      state.shots = s.shots.map(function(si,i){ return { subj:2, shot:si, secs:s.secs[i] }; });
+      state.shots = s.shots.map(function(si,i){ return { txt:'', en:'', shot:si, secs:s.secs[i] }; });
     } else if(!state.shots.length){
-      state.shots = [{ subj:2, shot:0, secs:2 }];
+      state.shots = [{ txt:'', en:'', shot:0, secs:2 }];
     }
     drawShots(); render();
   }
@@ -614,14 +673,17 @@ html,body{max-width:100%;overflow-x:hidden;}
     var wrap=$("shots"); wrap.innerHTML="";
     state.shots.forEach(function(sh,i){
       var d=document.createElement("div"); d.className="shot";
-      var subjOpts = SUBJECTS.map(function(s,j){
-        return '<option value="'+j+'"'+(j===sh.subj?' selected':'')+'>'+s.es+'</option>'; }).join("");
+      var subjOpts = '<option value="">Cargar uno predeterminado…</option>' + SUBJECTS.map(function(s,j){
+        return '<option value="'+j+'">'+s.es+'</option>'; }).join("");
       var shotOpts = SHOTS.map(function(s,j){
         return '<option value="'+j+'"'+(j===sh.shot?' selected':'')+'>'+s.es+'</option>'; }).join("");
       d.innerHTML =
         '<div class="shot-head"><span class="shot-n">Plano '+(i+1)+'</span>'+
-        (state.shots.length>1?'<button type="button" class="shot-rm" data-i="'+i+'">quitar</button>':'')+'</div>'+
-        '<select class="s-subj" data-i="'+i+'" aria-label="Qué se ve">'+subjOpts+'</select>'+
+        (state.shots.length>1?'<button type="button" class="shot-rm" data-i="'+i+'">quitar plano</button>':'')+'</div>'+
+        '<select class="s-subj preset" data-i="'+i+'" aria-label="Cargar un sujeto predeterminado">'+subjOpts+'</select>'+
+        '<div class="txtwrap'+(sh.txt?' has':'')+'"><input type="text" class="s-txt" data-i="'+i+'" value="'+esc(sh.txt||"")+
+        '" placeholder="o escríbelo tú: dos manos sobre un teclado…" aria-label="Qué se ve en este plano">'+
+        '<button type="button" class="clr" data-i="'+i+'" aria-label="Borrar">×</button></div>'+
         '<select class="s-shot" data-i="'+i+'" aria-label="Qué tan cerca">'+shotOpts+'</select>'+
         '<div class="secs"><input type="range" min="1" max="10" step="1" value="'+sh.secs+
         '" data-i="'+i+'" aria-label="Segundos del plano '+(i+1)+'"><b>'+sh.secs+' s</b></div>';
@@ -633,6 +695,10 @@ html,body{max-width:100%;overflow-x:hidden;}
 
   $("shots").addEventListener("input", function(e){
     var t=e.target, i=+t.dataset.i;
+    if(t.classList.contains("s-txt")){
+      state.shots[i].txt=t.value; state.shots[i].en=t.value;
+      t.parentElement.classList.toggle("has", !!t.value); render(); return;
+    }
     if(t.type==="range"){
       state.shots[i].secs=+t.value;
       t.parentElement.querySelector("b").textContent=t.value+" s";
@@ -641,7 +707,14 @@ html,body{max-width:100%;overflow-x:hidden;}
   });
   $("shots").addEventListener("change", function(e){
     var t=e.target, i=+t.dataset.i;
-    if(t.classList.contains("s-subj")) state.shots[i].subj=+t.value;
+    if(t.classList.contains("s-subj")){
+      if(t.value===""){ return; }
+      var s=SUBJECTS[+t.value];
+      state.shots[i].txt=s.es; state.shots[i].en=s.en;
+      var box=t.parentElement.querySelector(".txtwrap");
+      box.querySelector(".s-txt").value=s.es; box.classList.add("has");
+      t.value="";
+    }
     else if(t.classList.contains("s-shot")){
       state.shots[i].shot=+t.value;
       state.shots[i].secs = SUGER[SHOTS[+t.value].e];
@@ -650,6 +723,8 @@ html,body{max-width:100%;overflow-x:hidden;}
     render();
   });
   $("shots").addEventListener("click", function(e){
+    var c=e.target.closest(".clr");
+    if(c){ var ci=+c.dataset.i; state.shots[ci].txt=""; state.shots[ci].en=""; drawShots(); render(); return; }
     var b=e.target.closest(".shot-rm"); if(!b) return;
     state.shots.splice(+b.dataset.i,1); drawShots(); render();
   });
@@ -657,7 +732,7 @@ html,body{max-width:100%;overflow-x:hidden;}
     var last=state.shots[state.shots.length-1];
     var e = last ? SHOTS[last.shot].e : 1;
     var nueva = e<=2 ? 5 : 0;                       // alterna cerrado / general
-    state.shots.push({ subj:last?last.subj:2, shot:nueva, secs:SUGER[SHOTS[nueva].e] });
+    state.shots.push({ txt:'', en:'', shot:nueva, secs:SUGER[SHOTS[nueva].e] });
     state.seq = SEQS.length-1; $("seq").value=state.seq; $("seqHint").textContent=SEQS[state.seq].hint;
     drawShots(); render();
   });
@@ -681,7 +756,32 @@ html,body{max-width:100%;overflow-x:hidden;}
   bindSeg($("ratios"),"ratio","r");
   bindSeg($("tones"),"tone","t");
 
-  $("moment").addEventListener("change", function(e){ state.moment=+e.target.value; render(); });
+  $("moment").addEventListener("change", function(e){
+    state.moment=+e.target.value; state.momentTxt=MOMENTS[state.moment].es;
+    $("momentTxt").value=MOMENTS[state.moment].es;
+    $("momentTxt").parentElement.classList.add("has"); render();
+  });
+  $("sound").addEventListener("change", function(e){
+    state.sound=+e.target.value; state.soundTxt=SOUNDS[state.sound].es;
+    $("soundTxt").value=SOUNDS[state.sound].es;
+    $("soundTxt").parentElement.classList.add("has");
+    $("soundHint").textContent=SOUNDS[state.sound].hint; render();
+  });
+  $("soundTxt").addEventListener("input", function(e){
+    state.soundTxt=e.target.value;
+    e.target.parentElement.classList.toggle("has", !!e.target.value); render();
+  });
+  $("soundClr").addEventListener("click", function(){
+    state.soundTxt=""; $("soundTxt").value=""; $("soundTxt").parentElement.classList.remove("has"); render();
+  });
+  $("momentTxt").addEventListener("input", function(e){
+    state.momentTxt=e.target.value;
+    e.target.parentElement.classList.toggle("has", !!e.target.value); render();
+  });
+  $("momentClr").addEventListener("click", function(){
+    state.momentTxt=""; $("momentTxt").value=""; $("momentTxt").parentElement.classList.remove("has"); render();
+  });
+  $("dialogo").addEventListener("input", function(e){ state.dialogo=e.target.value; render(); });
   $("extra").addEventListener("input", function(e){ state.extra=e.target.value; render(); });
   $("title").addEventListener("input", function(e){ state.title=e.target.value; render(); });
 
@@ -707,6 +807,11 @@ html,body{max-width:100%;overflow-x:hidden;}
     $("tl").innerHTML = state.shots.map(function(s){
       return '<span style="flex:'+s.secs+'"></span>'; }).join("");
 
+    var mark=$("tlfree");
+    if(total>5){ mark.hidden=false; mark.style.left=(5/total*100)+"%";
+      mark.className = (5/total>0.72 ? "tlfree right" : "tlfree"); }
+    else mark.hidden=true;
+
     // total y aviso de generaciones
     var clips=Math.ceil(total/MAXCLIP);
     $("total").className = "total" + (total>MAXCLIP ? " over" : "");
@@ -722,23 +827,25 @@ html,body{max-width:100%;overflow-x:hidden;}
     for(var i=1;i<state.shots.length;i++){
       var a=SHOTS[state.shots[i-1].shot].e, b=SHOTS[state.shots[i].shot].e;
       if(Math.abs(a-b)<2){
-        avisos.push("Los planos "+i+" y "+(i+1)+" están casi a la misma distancia. Salta al menos dos pasos de escala o el corte se lee como error, no como corte.");
+        avisos.push("Los planos "+i+" y "+(i+1)+" están a una distancia parecida. Un salto corto suele leerse como un brinco de cámara; si quieres que se lea como corte, aleja o acerca más uno de los dos.");
         break;
       }
     }
     state.shots.forEach(function(s,i){
-      if(SHOTS[s.shot].e>=4 && s.secs<=2) avisos.push("El plano "+(i+1)+" es abierto y dura "+s.secs+" s. Un general necesita tiempo para que el ojo lo recorra.");
+      if(SHOTS[s.shot].e>=4 && s.secs<=2) avisos.push("El plano "+(i+1)+" es abierto y dura "+s.secs+" s. Los planos abiertos suelen pedir algo más de tiempo.");
     });
     $("warn").className = "warn" + (total>MAXCLIP ? " bad" : "");
     $("warn").innerHTML = avisos.length ? avisos[0] : "";
 
     // ficha
     var planos = state.shots.map(function(s,i){
-      return "P"+(i+1)+" · "+s.secs+" s · "+SHOTS[s.shot].es.split(" · ")[0]+" · "+SUBJECTS[s.subj].es;
+      return "P"+(i+1)+" · "+s.secs+" s · "+SHOTS[s.shot].es.split(" · ")[0]+" · "+(s.txt||"sin describir");
     });
     var rows=[["Casa",h.name]];
     state.shots.forEach(function(s,i){ rows.push(["Plano "+(i+1), planos[i].replace(/^P\d+ · /,"")]); });
-    rows.push(["Luz", m.ficha]);
+    rows.push(["Luz", (state.momentTxt.trim() && state.momentTxt.trim()!==m.es) ? state.momentTxt.trim() : m.ficha]);
+    rows.push(["Sonido", (state.soundTxt.trim() && state.soundTxt.trim()!==SOUNDS[state.sound].es) ? state.soundTxt.trim() : SOUNDS[state.sound].es]);
+    if(state.dialogo.trim()) rows.push(["Dice", "«"+state.dialogo.trim()+"»"]);
     rows.push(["Formato", state.ratio + " · " + total + " s · 480p"]);
     rows.push(["Tono", t.es]);
     rows.push(["Por qué", k.why]);
@@ -752,14 +859,24 @@ html,body{max-width:100%;overflow-x:hidden;}
     window.__rows = rows;
   }
 
+  function luzEn(m){
+    var w=state.momentTxt.trim();
+    return (w && w !== m.es) ? w.replace(/\.$/,"") : m.en;
+  }
   function buildPrompt(k,h,t,m,extra,total){
-    var cola = " " + cap(h.palette) + ". " + cap(t.en) + "." + (k.sound ? " " + cap(k.sound) + "." : "");
+    var snd = state.soundTxt.trim() && state.soundTxt.trim() !== SOUNDS[state.sound].es
+      ? state.soundTxt.trim().replace(/\.$/,"")
+      : SOUNDS[state.sound].en;
+    var voz = state.dialogo.trim()
+      ? ' The person says, clearly and in sync: "' + state.dialogo.trim().replace(/"/g,"") + '".'
+      : "";
+    var cola = " " + cap(h.palette) + ". " + cap(t.en) + ". " + cap(snd) + "." + voz;
 
     // un solo plano: se usan los beats de la gramática, no hay cortes
     if(state.shots.length===1){
-      var s=state.shots[0], subj=SUBJECTS[s.subj].en + (extra ? ", " + extra : "");
+      var s=state.shots[0], subj=(s.en||s.txt||"the subject") + (extra ? ", " + extra : "");
       var mid=Math.max(1, Math.round(s.secs*0.4));
-      return cap(subj) + ", " + m.en + ". " + cap(SHOTS[s.shot].en) + ". " +
+      return cap(subj) + ", " + luzEn(m) + ". " + cap(SHOTS[s.shot].en) + ". " +
         "0-" + mid + "s: " + k.b1 + ". " + mid + "-" + s.secs + "s: " + k.b2 + "." + cola;
     }
 
@@ -774,10 +891,10 @@ html,body{max-width:100%;overflow-x:hidden;}
     return clips.map(function(grupo, gi){
       var tt=grupo.reduce(function(a,s){ return a+s.secs; },0), reloj=0;
       var head = grupo.length + " distinct shots with hard cuts between them, " + tt +
-        " seconds total. All shots share the same place and the same light: " + m.en + ".";
+        " seconds total. All shots share the same place and the same light: " + luzEn(m) + ".";
       var cuerpo = grupo.map(function(s,i){
         var ini=reloj, fin=reloj+s.secs; reloj=fin;
-        var subj=SUBJECTS[s.subj].en + (gi===0 && i===0 && extra ? ", " + extra : "");
+        var subj=(s.en||s.txt||"the subject") + (gi===0 && i===0 && extra ? ", " + extra : "");
         return "SHOT " + (i+1) + ", " + ini + "-" + fin + "s: " + subj + ". " + cap(SHOTS[s.shot].en) + ".";
       }).join("\nHARD CUT.\n");
       var titulo = clips.length>1 ? "— GENERACIÓN " + (gi+1) + " de " + clips.length + " (" + tt + " s) —\n" : "";
@@ -906,6 +1023,8 @@ html,body{max-width:100%;overflow-x:hidden;}
 
   paintHouse();
   $("kindHint").textContent = kind().hint;
+  $("sound").value = state.sound;
+  $("soundHint").textContent = SOUNDS[state.sound].hint;
   $("seq").value = state.seq;
   loadSeq();
   var _r = render;
