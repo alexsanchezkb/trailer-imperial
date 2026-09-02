@@ -402,7 +402,8 @@ html,body{max-width:100%;overflow-x:hidden;}
         <div class="prompt" id="out"></div>
         <div class="actions">
           <button class="btn" id="copy" type="button">Copiar prompt</button>
-          <a class="btn ghost" id="open" href="https://fal.ai/tools/minimax-h3-max" target="_blank" rel="noopener noreferrer">Abrir fal.ai</a>
+          <a class="btn ghost" href="https://fal.ai/tools/minimax-h3-max" target="_blank" rel="noopener noreferrer">Probar gratis &middot; 5 s</a>
+          <a class="btn ghost" href="https://fal.ai/models/minimax/h3-max/text-to-video" target="_blank" rel="noopener noreferrer">Abrir el modelo</a>
         </div>
         <p class="note">Va en inglés porque H3 obedece mejor en inglés. Los clips de <b>5 s se prueban gratis</b> en <code>fal.ai/tools</code>, sin registro. A partir de ahí se va por la página del modelo y se paga por segundo: unos 20 céntimos los 10 s en la calidad buena, mientras dure la tarifa de lanzamiento. H3 genera <b>15 s como máximo por vez</b>, así que si te pasas el prompt sale partido en generaciones que luego montas.</p>
       </div>
@@ -1014,21 +1015,12 @@ html,body{max-width:100%;overflow-x:hidden;}
     return lines;
   }
 
-  function syncOpen(){
-    var total = state.shots.reduce(function(a,s){ return a+s.secs; },0);
-    $("open").href = total <= 5
-      ? "https://fal.ai/tools/minimax-h3-max"
-      : "https://fal.ai/models/minimax/h3-max/text-to-video";
-  }
-
   paintHouse();
   $("kindHint").textContent = kind().hint;
   $("sound").value = state.sound;
   $("soundHint").textContent = SOUNDS[state.sound].hint;
   $("seq").value = state.seq;
   loadSeq();
-  var _r = render;
-  render = function(){ _r(); syncOpen(); };
   render();
 })();
 </script>
